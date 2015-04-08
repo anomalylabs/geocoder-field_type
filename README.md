@@ -1,2 +1,3 @@
-# geocoder-field_type
-A geocoding field type for the Streams Platform.
+# Geocoder Field Type
+
+*anomaly.field_type.geocoder*

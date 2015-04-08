@@ -1,0 +1,39 @@
+{
+    "name": "anomaly/geocoder-field_type",
+    "type": "streams-addon",
+    "description": "A geocoding field type for the Streams Platform.",
+    "keywords": [
+        "streams-addon",
+        "geocoder",
+        "pyrocms",
+        "laravel"
+    ],
+    "homepage": "http://anomaly.is/",
+    "version": "1.0.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "AnomalyLabs, Inc.",
+            "email": "hello@anomaly.is",
+            "homepage": "http://anomaly.is/",
+            "role": "Owner"
+        }
+    ],
+    "support": {
+        "email": "support@anomaly.is"
+    },
+    "require": {
+        "willdurand/geocoder": "3.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Anomaly\\GeocoderFieldType\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "minimum-stability": "dev"
+}
