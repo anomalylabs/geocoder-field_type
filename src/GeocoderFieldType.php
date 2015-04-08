@@ -13,4 +13,11 @@ use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
 class GeocoderFieldType extends FieldType
 {
 
+    /**
+     * The input view.
+     *
+     * @var string
+     */
+    protected $inputView = 'anomaly.field_type.geocoder::input';
+
 }
