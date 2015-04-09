@@ -19,13 +19,14 @@ google.maps.event.addDomListener(window, 'load', function () {
         var map = new google.maps.Map(
             $(this)[0],
             {
-                zoom: 11,
+                center: location,
                 clickable: true,
                 zoomControl: true,
                 scrollwheel: false,
-                disableDefaultUI: true,
                 mapTypeControl: true,
-                center: location
+                disableDefaultUI: true,
+                zoom: $(this).data('zoom'),
+                maxZoom: $(this).data('max-zoom')
             }
         );
 

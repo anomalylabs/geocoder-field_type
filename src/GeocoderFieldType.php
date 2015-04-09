@@ -26,7 +26,8 @@ class GeocoderFieldType extends FieldType
      * @var array
      */
     protected $config = [
-        'height' => 400
+        'height' => 400,
+        'zoom'   => 3
     ];
 
 }
