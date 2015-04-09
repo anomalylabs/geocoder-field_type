@@ -19,7 +19,7 @@ google.maps.event.addDomListener(window, 'load', function () {
         var map = new google.maps.Map(
             $(this)[0],
             {
-                zoom: 13,
+                zoom: 11,
                 clickable: true,
                 zoomControl: true,
                 scrollwheel: false,
