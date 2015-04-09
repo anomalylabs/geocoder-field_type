@@ -7,6 +7,7 @@ google.maps.event.addDomListener(window, 'load', function () {
 
         // Define the inputs.
         var address = $(this).closest('.form-group').find('input.address');
+        var formatted = $(this).closest('.form-group').find('input.formatted');
         var longitude = $(this).closest('.form-group').find('input.longitude');
         var latitude = $(this).closest('.form-group').find('input.latitude');
 
@@ -62,6 +63,7 @@ google.maps.event.addDomListener(window, 'load', function () {
                     marker.setPosition(geometry.location);
 
                     // Update the inputs.
+                    formatted.val(result.formatted_address);
                     latitude.val(geometry.location.lat().toFixed(4));
                     longitude.val(geometry.location.lng().toFixed(4));
 
