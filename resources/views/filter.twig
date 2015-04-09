@@ -1,0 +1,10 @@
+<div class="ui input {{ field_type.class }}">
+
+    <input
+            class="form-control"
+            value="{{ field_type.value }}"
+            name="{{ field_type.getInputName() }}"
+            type="{{ field_type.config.type ?: 'text' }}"
+            placeholder="{{ trans(field_type.placeholder) }}">
+
+</div>

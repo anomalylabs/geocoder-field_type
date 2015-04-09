@@ -21,6 +21,13 @@ class GeocoderFieldType extends FieldType
     protected $inputView = 'anomaly.field_type.geocoder::input';
 
     /**
+     * The filter view.
+     *
+     * @var string
+     */
+    protected $filterView = 'anomaly.field_type.geocoder::filter';
+
+    /**
      * The default config.
      *
      * @var array
