@@ -2,15 +2,15 @@
     <div class="input-group">
 
         <span class="input-group-addon">
-            {{ icon('fa fa-map-marker') }}
+            {{ icon('map-marker') }}
         </span>
 
         <input
                 readonly
                 type="text"
-                class="formatted form-control"
-                value="{{ field_type.value }}"
-                name="{{ field_type.input_name }}[formatted]">
+                class="address form-control"
+                value="{{ field_type.value.address }}"
+                name="{{ field_type.input_name }}[address]">
 
     </div>
 </div>

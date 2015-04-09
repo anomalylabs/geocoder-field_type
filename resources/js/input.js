@@ -6,22 +6,25 @@ google.maps.event.addDomListener(window, 'load', function () {
     $('.geocoder-map').each(function () {
 
         // Define the inputs.
+        var search = $(this).closest('.form-group').find('input.search');
         var address = $(this).closest('.form-group').find('input.address');
-        var formatted = $(this).closest('.form-group').find('input.formatted');
         var longitude = $(this).closest('.form-group').find('input.longitude');
         var latitude = $(this).closest('.form-group').find('input.latitude');
+        var refresh = $(this).closest('.form-group').find('[data-toggle="refresh"]');
 
-        // Create the initial location.
-        var location = new google.maps.LatLng(-34.397, 150.644);
+        // Create the initial location from value or New York.
+        var location = new google.maps.LatLng(latitude.val() || 40.7033127, longitude.val() || -73.979681);
 
         // Initialize the Google Map.
         var map = new google.maps.Map(
             $(this)[0],
             {
-                zoom: 8,
+                zoom: 13,
                 clickable: true,
                 zoomControl: true,
                 scrollwheel: false,
+                disableDefaultUI: true,
+                mapTypeControl: true,
                 center: location
             }
         );
@@ -44,10 +47,10 @@ google.maps.event.addDomListener(window, 'load', function () {
         });
 
         // When the address changes, update.
-        address.on('keyup', function () {
+        search.on('keyup', function () {
             geocoder.geocode(
                 {
-                    'address': address.val()
+                    'address': search.val()
                 },
                 function (results, status) {
 
@@ -63,13 +66,21 @@ google.maps.event.addDomListener(window, 'load', function () {
                     marker.setPosition(geometry.location);
 
                     // Update the inputs.
-                    formatted.val(result.formatted_address);
+                    address.val(result.formatted_address);
                     latitude.val(geometry.location.lat().toFixed(4));
                     longitude.val(geometry.location.lng().toFixed(4));
 
                     // Center the map to the new location.
                     map.setCenter(geometry.location);
                 });
+        });
+
+        // When refresh is required, trigger keyup.
+        refresh.on('click', function (e) {
+
+            e.preventDefault();
+
+            search.trigger('keyup');
         });
 
         // Initialize spinners.

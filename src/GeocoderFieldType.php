@@ -20,4 +20,13 @@ class GeocoderFieldType extends FieldType
      */
     protected $inputView = 'anomaly.field_type.geocoder::input';
 
+    /**
+     * The default config.
+     *
+     * @var array
+     */
+    protected $config = [
+        'height' => 400
+    ];
+
 }

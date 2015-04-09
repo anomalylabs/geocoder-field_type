@@ -4,12 +4,12 @@
 
 {% include "anomaly.field_type.geocoder::partials/search" %}
 
-<div class="geocoder-map img-rounded" style="height: 400px; width: 100%;"></div>
+<div class="geocoder-map img-rounded" style="height: {{ field_type.config.height }}px; width: 100%;"></div>
 
 <div class="row">
 
     {% include "anomaly.field_type.geocoder::partials/latitude" %}
     {% include "anomaly.field_type.geocoder::partials/longitude" %}
-    {% include "anomaly.field_type.geocoder::partials/formatted" %}
+    {% include "anomaly.field_type.geocoder::partials/address" %}
 
 </div>
