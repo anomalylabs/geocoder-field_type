@@ -14,6 +14,13 @@ class GeocoderFieldType extends FieldType
 {
 
     /**
+     * The database column type.
+     *
+     * @var string
+     */
+    protected $columnType = 'text';
+
+    /**
      * The input view.
      *
      * @var string
