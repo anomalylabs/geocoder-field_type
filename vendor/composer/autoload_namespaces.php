@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),
-    'Geocoder' => array($vendorDir . '/willdurand/geocoder/src'),
+    'Geocoder' => array($vendorDir . '/willdurand/geocoder/src', $vendorDir . '/willdurand/geocoder/src'),
 );

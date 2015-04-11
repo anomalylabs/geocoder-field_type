@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f5818da36af1d76ac5020ebc6849a82d",
+    "hash": "fde67e26cbe10452fe7c6937034ab30b",
     "packages": [
         {
             "name": "egeloen/http-adapter",
@@ -169,17 +169,17 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "2.7.x-dev",
+            "version": "2.8.x-dev",
             "target-dir": "Symfony/Component/EventDispatcher",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "186349c2966529804e38685f671e64746dde220b"
+                "reference": "15bbd5beed94cca89ffcce18fb76eeac38937240"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/186349c2966529804e38685f671e64746dde220b",
-                "reference": "186349c2966529804e38685f671e64746dde220b",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/15bbd5beed94cca89ffcce18fb76eeac38937240",
+                "reference": "15bbd5beed94cca89ffcce18fb76eeac38937240",
                 "shasum": ""
             },
             "require": {
@@ -200,7 +200,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -224,7 +224,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-13 17:50:01"
+            "time": "2015-04-10 08:56:33"
         },
         {
             "name": "willdurand/geocoder",
@@ -232,12 +232,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/geocoder-php/Geocoder.git",
-                "reference": "0a65fca9f48da071c41d6ca640940d9d758811be"
+                "reference": "629f05970727e4e6a6a803854d7bce1b2ffa0b22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/geocoder-php/Geocoder/zipball/0a65fca9f48da071c41d6ca640940d9d758811be",
-                "reference": "0a65fca9f48da071c41d6ca640940d9d758811be",
+                "url": "https://api.github.com/repos/geocoder-php/Geocoder/zipball/629f05970727e4e6a6a803854d7bce1b2ffa0b22",
+                "reference": "629f05970727e4e6a6a803854d7bce1b2ffa0b22",
                 "shasum": ""
             },
             "require": {
@@ -284,7 +284,7 @@
                 "geocoding",
                 "geoip"
             ],
-            "time": "2015-02-17 07:02:30"
+            "time": "2015-04-10 13:33:12"
         }
     ],
     "packages-dev": [],
