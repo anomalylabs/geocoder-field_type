@@ -28,9 +28,6 @@
     "autoload": {
         "psr-4": {
             "Anomaly\\GeocoderFieldType\\": "src/"
-        },
-        "psr-0": {
-            "Geocoder": "vendor/willdurand/geocoder/src/"
         }
     },
     "extra": {
