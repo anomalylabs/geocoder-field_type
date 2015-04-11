@@ -38,7 +38,7 @@ google.maps.event.addDomListener(window, 'load', function () {
             map: map,
             zIndex: 2,
             draggable: true,
-            position: location
+            position: markerLocation
         });
 
         // Initialize the initial marker.
@@ -47,7 +47,7 @@ google.maps.event.addDomListener(window, 'load', function () {
             zIndex: 1,
             opacity: 0.5,
             draggable: false,
-            position: markerLocation
+            position: location
         });
 
         // When the marker moves, update.
@@ -111,7 +111,7 @@ google.maps.event.addDomListener(window, 'load', function () {
                 e.stopPropagation();
 
                 // Create a new location.
-                var location = new google.maps.LatLng(latitude.val(), longitude.val());
+                var location = new google.maps.LatLng(markerLatitude.val(), markerLongitude.val());
 
                 // Create a new marker.
                 marker.setPosition(location);
@@ -121,7 +121,7 @@ google.maps.event.addDomListener(window, 'load', function () {
                 e.stopPropagation();
 
                 // Create a new location.
-                var location = new google.maps.LatLng(latitude.val(), longitude.val());
+                var location = new google.maps.LatLng(markerLatitude.val(), markerLongitude.val());
 
                 // Create a new marker.
                 marker.setPosition(location);
@@ -138,7 +138,7 @@ google.maps.event.addDomListener(window, 'load', function () {
                 e.stopPropagation();
 
                 // Create a new location.
-                var location = new google.maps.LatLng(latitude.val(), longitude.val());
+                var location = new google.maps.LatLng(markerLatitude.val(), markerLongitude.val());
 
                 // Create a new marker.
                 marker.setPosition(location);
@@ -148,7 +148,7 @@ google.maps.event.addDomListener(window, 'load', function () {
                 e.stopPropagation();
 
                 // Create a new location.
-                var location = new google.maps.LatLng(latitude.val(), longitude.val());
+                var location = new google.maps.LatLng(markerLatitude.val(), markerLongitude.val());
 
                 // Create a new marker.
                 marker.setPosition(location);
