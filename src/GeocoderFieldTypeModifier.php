@@ -36,6 +36,10 @@ class GeocoderFieldTypeModifier extends FieldTypeModifier
             return [];
         }
 
+        if (is_array($value)) {
+            return $value;
+        }
+
         return (array)unserialize($value);
     }
 }
