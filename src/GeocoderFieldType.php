@@ -1,6 +1,7 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
 use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
+use Illuminate\Contracts\Bus\SelfHandling;
 
 /**
  * Class GeocoderFieldType
@@ -14,11 +15,11 @@ class GeocoderFieldType extends FieldType
 {
 
     /**
-     * The database column type.
+     * No database column.
      *
-     * @var string
+     * @var bool
      */
-    protected $columnType = 'text';
+    protected $columnType = false;
 
     /**
      * The input view.
@@ -41,7 +42,6 @@ class GeocoderFieldType extends FieldType
      */
     protected $config = [
         'height' => 400,
-        'zoom'   => 3
+        'zoom'   => 13
     ];
-
 }

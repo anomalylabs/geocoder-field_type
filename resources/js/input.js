@@ -6,8 +6,9 @@ google.maps.event.addDomListener(window, 'load', function () {
     $('.geocoder-map').each(function () {
 
         // Define the inputs.
-        var search = $(this).closest('.form-group').find('input.search');
+        var match = $(this).closest('.form-group').find('.match');
         var address = $(this).closest('.form-group').find('input.address');
+        var formatted = $(this).closest('.form-group').find('input.formatted');
         var latitude = $(this).closest('.form-group').find('input.latitude');
         var longitude = $(this).closest('.form-group').find('input.longitude');
         var markerLatitude = $(this).closest('.form-group').find('input.marker_latitude');
@@ -15,8 +16,8 @@ google.maps.event.addDomListener(window, 'load', function () {
         var refresh = $(this).closest('.form-group').find('[data-toggle="refresh"]');
 
         // Create the initial location from value or New York.
-        var location = new google.maps.LatLng(latitude.val() || 40.7033127, longitude.val() || -73.979681);
-        var markerLocation = new google.maps.LatLng(markerLatitude.val() || 40.7033127, markerLongitude.val() || -73.979681);
+        var location = new google.maps.LatLng(latitude.val() || 40.7128, longitude.val() || -74.0059);
+        var markerLocation = new google.maps.LatLng(markerLatitude.val() || 40.7128, markerLongitude.val() || -74.0059);
 
         // Initialize the Google Map.
         var map = new google.maps.Map(
@@ -35,7 +36,6 @@ google.maps.event.addDomListener(window, 'load', function () {
 
         // Initialize the initial marker.
         var marker = new google.maps.Marker({
-            map: map,
             zIndex: 2,
             draggable: true,
             position: markerLocation
@@ -43,28 +43,32 @@ google.maps.event.addDomListener(window, 'load', function () {
 
         // Initialize the initial marker.
         var position = new google.maps.Marker({
-            map: map,
             zIndex: 1,
             opacity: 0.5,
             draggable: false,
             position: location
         });
 
+        if (address.val().length > 1) {
+            marker.setMap(map);
+            position.setMap(map);
+        }
+
         // When the marker moves, update.
-        google.maps.event.addListener(marker, 'dragend', function () {
+        google.maps.event.addListener(marker, 'drag', function () {
 
             var result = marker.getPosition();
 
             // Update the inputs.
-            markerLatitude.val(result.lat().toFixed(4));
-            markerLongitude.val(result.lng().toFixed(4));
+            markerLatitude.val(result.lat().toFixed(7));
+            markerLongitude.val(result.lng().toFixed(7));
         });
 
         // When the address changes, update.
-        search.on('keyup', function () {
+        address.on('keyup', function () {
             geocoder.geocode(
                 {
-                    'address': search.val()
+                    'address': address.val()
                 },
                 function (results, status) {
 
@@ -76,19 +80,23 @@ google.maps.event.addDomListener(window, 'load', function () {
                     var result = results[0];
                     var geometry = result.geometry;
 
+                    // Set the match string.
+                    match.text(result.formatted_address);
+
+                    // Center the map to the new location.
+                    map.setCenter(geometry.location);
+
                     // Create a new marker.
+                    marker.setMap(map);
                     marker.setPosition(geometry.location);
                     position.setPosition(geometry.location);
 
                     // Update the inputs.
-                    address.val(result.formatted_address);
-                    markerLatitude.val(geometry.location.lat().toFixed(4));
-                    markerLongitude.val(geometry.location.lng().toFixed(4));
-                    latitude.val(geometry.location.lat().toFixed(4));
-                    longitude.val(geometry.location.lng().toFixed(4));
-
-                    // Center the map to the new location.
-                    map.setCenter(geometry.location);
+                    formatted.val(result.formatted_address);
+                    latitude.val(geometry.location.lat().toFixed(7));
+                    longitude.val(geometry.location.lng().toFixed(7));
+                    markerLatitude.val(geometry.location.lat().toFixed(7));
+                    markerLongitude.val(geometry.location.lng().toFixed(7));
                 });
         });
 
@@ -97,7 +105,7 @@ google.maps.event.addDomListener(window, 'load', function () {
 
             e.preventDefault();
 
-            search.trigger('keyup');
+            address.trigger('keyup');
         });
 
         // Initialize spinners.
@@ -153,6 +161,11 @@ google.maps.event.addDomListener(window, 'load', function () {
                 // Create a new marker.
                 marker.setPosition(location);
             }
+        });
+
+        $('[data-toggle="tab"]').on('shown.bs.tab', function () {
+            google.maps.event.trigger(map, 'resize');
+            map.setCenter(position.getPosition());
         });
     });
 });

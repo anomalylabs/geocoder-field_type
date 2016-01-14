@@ -1,0 +1,34 @@
+<div class="hidden">
+
+    <input
+            readonly
+            class="latitude"
+            value="{{ field_type.value.latitude }}"
+            name="{{ field_type.input_name }}[latitude]">
+
+    <input
+            readonly
+            class="longitude"
+            value="{{ field_type.value.longitude }}"
+            name="{{ field_type.input_name }}[longitude]">
+
+    <input
+            readonly
+            type="text"
+            class="formatted form-control"
+            value="{{ field_type.value.address }}"
+            name="{{ field_type.input_name }}[formatted]">
+
+    <input
+            type="text"
+            class="marker_latitude form-control"
+            value="{{ field_type.value.marker_latitude }}"
+            name="{{ field_type.input_name }}[marker_latitude]">
+
+    <input
+            type="text"
+            class="marker_longitude form-control"
+            value="{{ field_type.value.marker_longitude }}"
+            name="{{ field_type.input_name }}[marker_longitude]">
+
+</div>

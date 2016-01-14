@@ -1,6 +1,7 @@
 <?php
 
 return [
-    'name'        => 'Geocoder',
-    'description' => 'A geocoding field type for the Streams Platform.'
+    'title'       => 'Geocoder',
+    'name'        => 'Geocoder Field Type',
+    'description' => 'A geocoding field type powered by Google Maps.'
 ];
