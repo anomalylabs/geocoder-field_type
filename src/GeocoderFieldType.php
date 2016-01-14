@@ -44,4 +44,15 @@ class GeocoderFieldType extends FieldType
         'height' => 400,
         'zoom'   => 13
     ];
+
+    /**
+     * Get the value to validate.
+     *
+     * @param null $default
+     * @return array
+     */
+    public function getValidationValue($default = null)
+    {
+        return array_filter(parent::getValidationValue($default));
+    }
 }
