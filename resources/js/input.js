@@ -108,7 +108,7 @@ google.maps.event.addDomListener(window, 'load', function () {
             address.trigger('keyup');
         });
 
-        // Initialize spinners.
+        /*// Initialize spinners.
         markerLatitude.spinner({
             min: '-180',
             max: '180',
@@ -161,7 +161,7 @@ google.maps.event.addDomListener(window, 'load', function () {
                 // Create a new marker.
                 marker.setPosition(location);
             }
-        });
+        });*/
 
         $('[data-toggle="tab"]').on('shown.bs.tab', function () {
             google.maps.event.trigger(map, 'resize');
