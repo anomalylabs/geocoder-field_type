@@ -59,14 +59,14 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      * @param array $options
      * @return null|string
      */
-    public function image(array $options = [])
+    public function image(array $options = [], $formatted = false)
     {
         if (!$this->object->getValue()) {
             return null;
         }
 
         $data = [
-            'center'         => $this->position(),
+            'center'         => $this->position($formatted),
             'scale'          => array_get($options, 'scale', 1),
             'zoom'           => $this->object->config('zoom', 13),
             'format'         => array_get($options, 'format', 'png'),
@@ -79,7 +79,7 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
 
         $color = 'color:0xfa5b4a';
         $size  = 'size:' . array_get($marker, 'marker', 'small');
-        $label = 'label:' . array_get($marker, 'label', 'A') . '|' . $this->position();
+        $label = 'label:' . array_get($marker, 'label', 'A') . '|' . $this->position($formatted);
 
         $data['markers'] = implode('|', [$size, $color, $label]);
 
@@ -98,78 +98,31 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      */
     public function formattedImage(array $options = [])
     {
-        if (!$this->object->getValue()) {
-            return null;
-        }
-
-        $data = [
-            'center'         => $this->formattedPosition(),
-            'scale'          => array_get($options, 'scale', 1),
-            'zoom'           => $this->object->config('zoom', 13),
-            'format'         => array_get($options, 'format', 'png'),
-            'maptype'        => array_get($options, 'maptype', 'roadmap'),
-            'visual_refresh' => array_get($options, 'visual_refresh', true),
-            'size'           => array_get($options, 'width', 150) . 'x' . array_get($options, 'height', 100)
-        ];
-
-        $marker = array_get($options, 'marker');
-
-        $color = 'color:0xfa5b4a';
-        $size  = 'size:' . array_get($marker, 'marker', 'small');
-        $label = 'label:' . array_get($marker, 'label', 'A') . '|' . $this->formattedPosition();
-
-        $data['markers'] = implode('|', [$size, $color, $label]);
-
-        $url = 'http://maps.googleapis.com/maps/api/staticmap?'
-            . http_build_query($data)
-            . '&key=' . $this->object->key();
-
-        return $this->image->make($url)->setExtension(array_get($options, 'format', 'png'))->image();
+        return $this->image($options, true);
     }
 
     /**
      * Return the map URL.
      *
+     * @param bool $formatted
      * @return string
      */
-    public function url()
+    public function url($formatted = false)
     {
-        return 'https://www.google.com/maps/place/' . $this->position() . '/';
-    }
-
-    /**
-     * Return the map URL for formatted location.
-     *
-     * @return string
-     */
-    public function formattedUrl()
-    {
-        return 'https://www.google.com/maps/place/' . $this->formattedPosition() . '/';
+        return 'https://www.google.com/maps/place/' . $this->position($formatted) . '/';
     }
 
     /**
      * Return the marker position.
      *
+     * @param bool $formatted
      * @return string
      */
-    public function position()
+    public function position($formatted = false)
     {
-        return array_get($this->object->getValue(), 'latitude') . ',' . array_get(
-            $this->object->getValue(),
-            'longitude'
-        );
-    }
+        $latitude  = array_get($this->object->getValue(), $formatted ? 'formatted_latitude' : 'latitude');
+        $longitude = array_get($this->object->getValue(), $formatted ? 'formatted_longitude' : 'longitude');
 
-    /**
-     * Return the formatted position.
-     *
-     * @return string
-     */
-    public function formattedPosition()
-    {
-        return array_get($this->object->getValue(), 'formatted_latitude') . ',' . array_get(
-            $this->object->getValue(),
-            'formatted_longitude'
-        );
+        return implode(',', [$latitude, $longitude]);
     }
 }
