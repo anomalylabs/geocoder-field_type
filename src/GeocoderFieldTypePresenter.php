@@ -87,7 +87,7 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
             . http_build_query($data)
             . '&key=' . $this->object->key();
 
-        return $this->image->make($url)->setExtension(array_get($options, 'format', 'png'))->image();
+        return $this->image->make($url, 'image')->setExtension(array_get($options, 'format', 'png'));
     }
 
     /**
@@ -124,5 +124,20 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
         $longitude = array_get($this->object->getValue(), $formatted ? 'formatted_longitude' : 'longitude');
 
         return implode(',', [$latitude, $longitude]);
+    }
+
+    /**
+     * Return the value key if it exists.
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public function __get($key)
+    {
+        if ($value = array_get($this->object->getValue(), $key)) {
+            return $value;
+        }
+
+        return parent::__get($key);
     }
 }
