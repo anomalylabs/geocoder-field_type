@@ -54,10 +54,10 @@ class AddDatabaseColumns
 
                 $table->string($assignment->getFieldSlug() . '_address')->nullable(true);
                 $table->string($assignment->getFieldSlug() . '_formatted')->nullable(true);
-                $table->float($assignment->getFieldSlug() . '_latitude', 10, 6)->nullable(true);
-                $table->float($assignment->getFieldSlug() . '_longitude', 10, 6)->nullable(true);
-                $table->float($assignment->getFieldSlug() . '_formatted_latitude', 10, 6)->nullable(true);
-                $table->float($assignment->getFieldSlug() . '_formatted_longitude', 10, 6)->nullable(true);
+                $table->decimal($assignment->getFieldSlug() . '_latitude', 10, 7)->nullable(true);
+                $table->decimal($assignment->getFieldSlug() . '_longitude', 10, 7)->nullable(true);
+                $table->decimal($assignment->getFieldSlug() . '_formatted_latitude', 10, 7)->nullable(true);
+                $table->decimal($assignment->getFieldSlug() . '_formatted_longitude', 10, 7)->nullable(true);
             }
         );
     }
