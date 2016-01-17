@@ -56,8 +56,8 @@ class AddDatabaseColumns
                 $table->string($assignment->getFieldSlug() . '_formatted')->nullable(true);
                 $table->double($assignment->getFieldSlug() . '_latitude', 10, 7)->nullable(true);
                 $table->double($assignment->getFieldSlug() . '_longitude', 10, 7)->nullable(true);
-                $table->double($assignment->getFieldSlug() . '_marker_latitude', 10, 7)->nullable(true);
-                $table->double($assignment->getFieldSlug() . '_marker_longitude', 10, 7)->nullable(true);
+                $table->double($assignment->getFieldSlug() . '_formatted_latitude', 10, 7)->nullable(true);
+                $table->double($assignment->getFieldSlug() . '_formatted_longitude', 10, 7)->nullable(true);
             }
         );
     }

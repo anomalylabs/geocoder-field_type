@@ -89,18 +89,6 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
     }
 
     /**
-     * Return a static map image link.
-     *
-     * @param array $options
-     * @param array $attributes
-     * @return string
-     */
-    public function imageLink(array $options = [], array $attributes = [])
-    {
-        return str_replace('__MAP__', $this->image($options), $this->html->link($this->url(), '__MAP__', $attributes));
-    }
-
-    /**
      * Return the map URL.
      *
      * @return string

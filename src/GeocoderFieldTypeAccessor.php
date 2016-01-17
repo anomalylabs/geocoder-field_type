@@ -23,8 +23,8 @@ class GeocoderFieldTypeAccessor extends FieldTypeAccessor
         'formatted',
         'latitude',
         'longitude',
-        'marker_latitude',
-        'marker_longitude'
+        'formatted_latitude',
+        'formatted_longitude'
     ];
 
     /**
@@ -64,7 +64,7 @@ class GeocoderFieldTypeAccessor extends FieldTypeAccessor
         $entry = $this->fieldType->getEntry();
 
         $attributes = $entry->getAttributes();
-        
+
         return array_combine(
             $this->properties,
             array_map(

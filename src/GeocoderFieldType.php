@@ -2,6 +2,7 @@
 
 use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Contracts\Config\Repository;
 
 /**
  * Class GeocoderFieldType
@@ -44,6 +45,33 @@ class GeocoderFieldType extends FieldType
         'height' => 400,
         'zoom'   => 13
     ];
+
+    /**
+     * The config repository.
+     *
+     * @var Repository
+     */
+    protected $configuration;
+
+    /**
+     * Create a new GeocoderFieldType instance.
+     *
+     * @param Repository $configuration
+     */
+    public function __construct(Repository $configuration)
+    {
+        $this->configuration = $configuration;
+    }
+
+    /**
+     * Return the Google Maps API Key
+     *
+     * @return string
+     */
+    public function key()
+    {
+        return $this->configuration->get($this->getNamespace('google.key'));
+    }
 
     /**
      * Get the value to validate.

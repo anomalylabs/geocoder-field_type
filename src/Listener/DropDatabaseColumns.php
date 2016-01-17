@@ -60,8 +60,8 @@ class DropDatabaseColumns
                 $table->dropColumn($assignment->getFieldSlug() . '_formatted');
                 $table->dropColumn($assignment->getFieldSlug() . '_latitude');
                 $table->dropColumn($assignment->getFieldSlug() . '_longitude');
-                $table->dropColumn($assignment->getFieldSlug() . '_marker_latitude');
-                $table->dropColumn($assignment->getFieldSlug() . '_marker_longitude');
+                $table->dropColumn($assignment->getFieldSlug() . '_formatted_latitude');
+                $table->dropColumn($assignment->getFieldSlug() . '_formatted_longitude');
             }
         );
     }

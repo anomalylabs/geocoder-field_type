@@ -1,7 +1,5 @@
 {{ asset_add("styles.css", "anomaly.field_type.geocoder::less/input.less") }}
-{#{{ asset_add("styles.css", "anomaly.field_type.geocoder::less/spinner.less") }}
-{{ asset_add("scripts.js", "anomaly.field_type.geocoder::js/jquery-ui.spinner.min.js") }}#}
-{{ asset_add("scripts.js", "https://maps.google.com/maps/api/js?sensor=false") }}
+{{ asset_add("scripts.js", "https://maps.google.com/maps/api/js?sensor=false?key=" ~ field_type.key) }}
 {{ asset_add("scripts.js", "anomaly.field_type.geocoder::js/input.js") }}
 
 {% include "anomaly.field_type.geocoder::partials/address" %}
@@ -17,12 +15,5 @@
 </small>
 
 <div class="row">
-
-    {#{% include "anomaly.field_type.geocoder::partials/latitude" %}
-    {% include "anomaly.field_type.geocoder::partials/longitude" %}
-    {% include "anomaly.field_type.geocoder::partials/formatted" %}
-    {% include "anomaly.field_type.geocoder::partials/location" %}#}
-
     {% include "anomaly.field_type.geocoder::partials/data" %}
-
 </div>

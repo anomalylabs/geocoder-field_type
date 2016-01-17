@@ -11,26 +11,26 @@ google.maps.event.addDomListener(window, 'load', function () {
         var formatted = $(this).closest('.form-group').find('input.formatted');
         var latitude = $(this).closest('.form-group').find('input.latitude');
         var longitude = $(this).closest('.form-group').find('input.longitude');
-        var markerLatitude = $(this).closest('.form-group').find('input.marker_latitude');
-        var markerLongitude = $(this).closest('.form-group').find('input.marker_longitude');
+        var formattedLatitude = $(this).closest('.form-group').find('input.formatted_latitude');
+        var formattedLongitude = $(this).closest('.form-group').find('input.formatted_longitude');
         var refresh = $(this).closest('.form-group').find('[data-toggle="refresh"]');
 
         // Create the initial location from value or New York.
         var location = new google.maps.LatLng(latitude.val() || 40.7128, longitude.val() || -74.0059);
-        var markerLocation = new google.maps.LatLng(markerLatitude.val() || 40.7128, markerLongitude.val() || -74.0059);
+        var formattedLocation = new google.maps.LatLng(formattedLatitude.val() || 40.7128, formattedLongitude.val() || -74.0059);
 
         // Initialize the Google Map.
         var map = new google.maps.Map(
             $(this)[0],
             {
-                center: location,
                 clickable: true,
                 zoomControl: true,
                 scrollwheel: false,
                 mapTypeControl: true,
                 disableDefaultUI: true,
                 zoom: $(this).data('zoom'),
-                maxZoom: $(this).data('max-zoom')
+                maxZoom: $(this).data('max-zoom'),
+                center: formattedLocation
             }
         );
 
@@ -38,7 +38,7 @@ google.maps.event.addDomListener(window, 'load', function () {
         var marker = new google.maps.Marker({
             zIndex: 2,
             draggable: true,
-            position: markerLocation
+            position: location
         });
 
         // Initialize the initial marker.
@@ -46,7 +46,7 @@ google.maps.event.addDomListener(window, 'load', function () {
             zIndex: 1,
             opacity: 0.5,
             draggable: false,
-            position: location
+            position: formattedLocation
         });
 
         if (address.val().length > 1) {
@@ -60,8 +60,8 @@ google.maps.event.addDomListener(window, 'load', function () {
             var result = marker.getPosition();
 
             // Update the inputs.
-            markerLatitude.val(result.lat().toFixed(7));
-            markerLongitude.val(result.lng().toFixed(7));
+            latitude.val(result.lat().toFixed(7));
+            longitude.val(result.lng().toFixed(7));
         });
 
         // When the address changes, update.
@@ -95,8 +95,8 @@ google.maps.event.addDomListener(window, 'load', function () {
                     formatted.val(result.formatted_address);
                     latitude.val(geometry.location.lat().toFixed(7));
                     longitude.val(geometry.location.lng().toFixed(7));
-                    markerLatitude.val(geometry.location.lat().toFixed(7));
-                    markerLongitude.val(geometry.location.lng().toFixed(7));
+                    formattedLatitude.val(geometry.location.lat().toFixed(7));
+                    formattedLongitude.val(geometry.location.lng().toFixed(7));
                 });
         });
 
@@ -107,61 +107,6 @@ google.maps.event.addDomListener(window, 'load', function () {
 
             address.trigger('keyup');
         });
-
-        /*// Initialize spinners.
-        markerLatitude.spinner({
-            min: '-180',
-            max: '180',
-            page: 10,
-            step: '0.0001',
-            spin: function (e) {
-
-                e.stopPropagation();
-
-                // Create a new location.
-                var location = new google.maps.LatLng(markerLatitude.val(), markerLongitude.val());
-
-                // Create a new marker.
-                marker.setPosition(location);
-            },
-            change: function (e) {
-
-                e.stopPropagation();
-
-                // Create a new location.
-                var location = new google.maps.LatLng(markerLatitude.val(), markerLongitude.val());
-
-                // Create a new marker.
-                marker.setPosition(location);
-            }
-        });
-
-        markerLongitude.spinner({
-            min: '-180',
-            max: '180',
-            page: 10,
-            step: '0.0001',
-            spin: function (e) {
-
-                e.stopPropagation();
-
-                // Create a new location.
-                var location = new google.maps.LatLng(markerLatitude.val(), markerLongitude.val());
-
-                // Create a new marker.
-                marker.setPosition(location);
-            },
-            change: function (e) {
-
-                e.stopPropagation();
-
-                // Create a new location.
-                var location = new google.maps.LatLng(markerLatitude.val(), markerLongitude.val());
-
-                // Create a new marker.
-                marker.setPosition(location);
-            }
-        });*/
 
         $('[data-toggle="tab"]').on('shown.bs.tab', function () {
             google.maps.event.trigger(map, 'resize');
