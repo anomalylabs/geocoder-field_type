@@ -88,6 +88,7 @@ google.maps.event.addDomListener(window, 'load', function () {
 
                     // Create a new marker.
                     marker.setMap(map);
+                    position.setMap(map);
                     marker.setPosition(geometry.location);
                     position.setPosition(geometry.location);
 
