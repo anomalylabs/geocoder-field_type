@@ -148,53 +148,16 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
     }
 
     /**
-     * Return the address.
-     *
-     * @return double
-     */
-    public function address()
-    {
-        return array_get($this->object->getValue(), 'address');
-    }
-
-    /**
-     * Return the formatted.
-     *
-     * @return double
-     */
-    public function formatted()
-    {
-        return array_get($this->object->getValue(), 'formatted');
-    }
-
-    /**
      * Return the marker position.
      *
      * @return string
      */
     public function position()
     {
-        return $this->latitude() . ',' . $this->longitude();
-    }
-
-    /**
-     * Return the latitude.
-     *
-     * @return double
-     */
-    public function latitude()
-    {
-        return array_get($this->object->getValue(), 'latitude');
-    }
-
-    /**
-     * Return the longitude.
-     *
-     * @return double
-     */
-    public function longitude()
-    {
-        return array_get($this->object->getValue(), 'longitude');
+        return array_get($this->object->getValue(), 'latitude') . ',' . array_get(
+            $this->object->getValue(),
+            'longitude'
+        );
     }
 
     /**
@@ -204,26 +167,9 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      */
     public function formattedPosition()
     {
-        return $this->formattedLatitude() . ',' . $this->formattedLongitude();
-    }
-
-    /**
-     * Return the formatted latitude.
-     *
-     * @return double
-     */
-    public function formattedLatitude()
-    {
-        return array_get($this->object->getValue(), 'formatted_latitude');
-    }
-
-    /**
-     * Return the longitude.
-     *
-     * @return double
-     */
-    public function formattedLongitude()
-    {
-        return array_get($this->object->getValue(), 'formatted_longitude');
+        return array_get($this->object->getValue(), 'formatted_latitude') . ',' . array_get(
+            $this->object->getValue(),
+            'formatted_longitude'
+        );
     }
 }
