@@ -78,10 +78,10 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
         }
 
         $data = [
-            'center'         => $this->position($formatted),
             'scale'          => array_get($options, 'scale', 1),
             'zoom'           => $this->object->config('zoom', 13),
             'format'         => array_get($options, 'format', 'png'),
+            'center'         => implode(',', $this->position($formatted)),
             'maptype'        => array_get($options, 'maptype', 'roadmap'),
             'visual_refresh' => array_get($options, 'visual_refresh', true),
             'size'           => array_get($options, 'width', 150) . 'x' . array_get($options, 'height', 100)
@@ -91,7 +91,7 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
 
         $color = 'color:0xfa5b4a';
         $size  = 'size:' . array_get($marker, 'marker', 'small');
-        $label = 'label:' . array_get($marker, 'label', 'A') . '|' . $this->position($formatted);
+        $label = 'label:' . array_get($marker, 'label', 'A') . '|' . implode(',', $this->position($formatted));
 
         $data['markers'] = implode('|', [$size, $color, $label]);
 
@@ -161,7 +161,35 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      */
     public function url($formatted = false)
     {
-        return 'https://www.google.com/maps/place/' . $this->position($formatted) . '/';
+        return 'https://www.google.com/maps/place/' . implode(',', $this->position($formatted)) . '/';
+    }
+
+    /**
+     * Return a link to the URL.
+     *
+     * @param      $title
+     * @param      $attributes
+     * @param      $secure
+     * @param bool $formatted
+     * @return string
+     */
+    public function link($title, array $attributes = [], $secure = null, $formatted = false)
+    {
+        return $this->html->link($this->url($formatted), $title ?: $this->url($formatted), $attributes, $secure);
+    }
+
+    /**
+     * Return a link to the formatted URL.
+     *
+     * @param      $title
+     * @param      $attributes
+     * @param      $secure
+     * @param bool $formatted
+     * @return string
+     */
+    public function formattedLink($title, array $attributes = [], $secure = null)
+    {
+        return $this->link($title, $attributes, $secure, true);
     }
 
     /**
