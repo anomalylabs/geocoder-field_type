@@ -1,8 +1,11 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
+use Anomaly\GeocoderFieldType\Criteria\EmbedCriteria;
 use Anomaly\Streams\Platform\Addon\FieldType\FieldTypePresenter;
 use Anomaly\Streams\Platform\Image\Image;
+use Anomaly\Streams\Platform\Support\Collection;
 use Collective\Html\HtmlBuilder;
+use Illuminate\Contracts\View\Factory;
 
 /**
  * Class GeocoderFieldTypePresenter
@@ -32,6 +35,13 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
     protected $html;
 
     /**
+     * The view factory.
+     *
+     * @var Factory
+     */
+    protected $view;
+
+    /**
      * The image utility.
      *
      * @var Image
@@ -42,12 +52,14 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      * Create a new GeocoderFieldTypePresenter instance.
      *
      * @param HtmlBuilder $html
+     * @param Factory     $view
      * @param Image       $image
      * @param             $object
      */
-    public function __construct(HtmlBuilder $html, Image $image, $object)
+    public function __construct(HtmlBuilder $html, Factory $view, Image $image, $object)
     {
         $this->html  = $html;
+        $this->view  = $view;
         $this->image = $image;
 
         parent::__construct($object);
@@ -91,6 +103,46 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
     }
 
     /**
+     * Return an embed map.
+     *
+     * @param array $options
+     * @param bool  $formatted
+     * @return null|string
+     */
+    public function embed(array $options = [], $formatted = false)
+    {
+        $criteria = new EmbedCriteria(
+            'make',
+            function (Collection $options) use ($formatted) {
+
+                return $this->view->make(
+                    'anomaly.field_type.geocoder::embed',
+                    [
+                        'formatted'  => $formatted,
+                        'options'    => $options,
+                        'field_type' => $this
+                    ]
+                )->render();
+            }
+        );
+
+        $criteria->setOptions($options);
+
+        return $criteria;
+    }
+
+    /**
+     * Return an embed map for the formatted location.
+     *
+     * @param array $options
+     * @return null|string
+     */
+    public function formattedEmbed(array $options = [])
+    {
+        return $this->embed($options, true);
+    }
+
+    /**
      * Return a static image map for the formatted location.
      *
      * @param array $options
@@ -123,7 +175,29 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
         $latitude  = array_get($this->object->getValue(), $formatted ? 'formatted_latitude' : 'latitude');
         $longitude = array_get($this->object->getValue(), $formatted ? 'formatted_longitude' : 'longitude');
 
-        return implode(',', [$latitude, $longitude]);
+        return compact('latitude', 'longitude');
+    }
+
+    /**
+     * Return the latitude.
+     *
+     * @param bool $formatted
+     * @return float
+     */
+    public function latitude($formatted = false)
+    {
+        return array_get($this->position($formatted), 'latitude');
+    }
+
+    /**
+     * Return the longitude.
+     *
+     * @param bool $formatted
+     * @return float
+     */
+    public function longitude($formatted = false)
+    {
+        return array_get($this->position($formatted), 'longitude');
     }
 
     /**
