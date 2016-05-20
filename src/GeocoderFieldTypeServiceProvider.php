@@ -13,26 +13,4 @@ use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 class GeocoderFieldTypeServiceProvider extends AddonServiceProvider
 {
 
-    /**
-     * The addon listeners.
-     *
-     * @var array
-     */
-    protected $listeners = [
-        'Anomaly\Streams\Platform\Assignment\Event\AssignmentWasCreated' => [
-            'Anomaly\GeocoderFieldType\Listener\AddDatabaseColumns'
-        ],
-        'Anomaly\Streams\Platform\Assignment\Event\AssignmentWasDeleted' => [
-            'Anomaly\GeocoderFieldType\Listener\DropDatabaseColumns'
-        ]
-    ];
-
-    /**
-     * The singleton bindings.
-     *
-     * @var array
-     */
-    protected $singletons = [
-        'Anomaly\GeocoderFieldType\GeocoderFieldTypeModifier' => 'Anomaly\GeocoderFieldType\GeocoderFieldTypeModifier'
-    ];
 }
