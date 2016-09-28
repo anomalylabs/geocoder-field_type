@@ -11,6 +11,6 @@ return [
     |
     */
 
-    'key' => null
+    'key' => env('GEOCODER_KEY'),
     
 ];
