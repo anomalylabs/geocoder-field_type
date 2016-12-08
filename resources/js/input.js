@@ -49,6 +49,7 @@ google.maps.event.addDomListener(window, 'load', function () {
             position: formattedLocation
         });
 
+        // Do we have a value?
         if (address.val().length > 1) {
             marker.setMap(map);
             position.setMap(map);
@@ -109,6 +110,7 @@ google.maps.event.addDomListener(window, 'load', function () {
             address.trigger('keyup');
         });
 
+        // Resize on tab displays.
         $('[data-toggle="tab"]').on('shown.bs.tab', function () {
             google.maps.event.trigger(map, 'resize');
             map.setCenter(position.getPosition());
