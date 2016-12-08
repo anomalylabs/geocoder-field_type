@@ -1,16 +1,14 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
 use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Config\Repository;
 
 /**
  * Class GeocoderFieldType
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\GeocoderFieldType
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 class GeocoderFieldType extends FieldType
 {
@@ -43,7 +41,7 @@ class GeocoderFieldType extends FieldType
      */
     protected $config = [
         'height' => 400,
-        'zoom'   => 13
+        'zoom'   => 13,
     ];
 
     /**

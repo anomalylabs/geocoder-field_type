@@ -10,10 +10,9 @@ use Illuminate\Contracts\View\Factory;
 /**
  * Class GeocoderFieldTypePresenter
  *
- * @link          http://anomaly.is/streams-platform
- * @author        AnomalyLabs, Inc. <hello@anomaly.is>
- * @author        Ryan Thompson <ryan@anomaly.is>
- * @package       Anomaly\GeocoderFieldType
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 class GeocoderFieldTypePresenter extends FieldTypePresenter
 {
@@ -25,7 +24,6 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      * @var GeocoderFieldType
      */
     protected $object;
-
 
     /**
      * The HTMl builder.
@@ -84,7 +82,7 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
             'center'         => implode(',', $this->position($formatted)),
             'maptype'        => array_get($options, 'maptype', 'roadmap'),
             'visual_refresh' => array_get($options, 'visual_refresh', true),
-            'size'           => array_get($options, 'width', 150) . 'x' . array_get($options, 'height', 100)
+            'size'           => array_get($options, 'width', 150) . 'x' . array_get($options, 'height', 100),
         ];
 
         $marker = array_get($options, 'marker');
@@ -120,7 +118,7 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
                     [
                         'formatted'  => $formatted,
                         'options'    => $options,
-                        'field_type' => $this
+                        'field_type' => $this,
                     ]
                 )->render();
             }

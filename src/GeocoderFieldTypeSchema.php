@@ -8,10 +8,9 @@ use Illuminate\Database\Schema\Blueprint;
 /**
  * Class GeocoderFieldTypeSchema
  *
- * @link          http://pyrocms.com/
- * @author        PyroCMS, Inc. <support@pyrocms.com>
- * @author        Ryan Thompson <ryan@pyrocms.com>
- * @package       Anomaly\GeocoderFieldType
+ * @link   http://pyrocms.com/
+ * @author PyroCMS, Inc. <support@pyrocms.com>
+ * @author Ryan Thompson <ryan@pyrocms.com>
  */
 class GeocoderFieldTypeSchema extends FieldTypeSchema
 {
@@ -27,7 +26,7 @@ class GeocoderFieldTypeSchema extends FieldTypeSchema
         '_latitude',
         '_longitude',
         '_formatted_latitude',
-        '_formatted_longitude'
+        '_formatted_longitude',
     ];
 
     /**
