@@ -81,4 +81,14 @@ class GeocoderFieldType extends FieldType
     {
         return array_filter(parent::getValidationValue($default));
     }
+
+    /**
+     * Get the unique column name.
+     *
+     * @return string
+     */
+    public function getUniqueColumnName()
+    {
+        return $this->field . '_formatted';
+    }
 }
