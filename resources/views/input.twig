@@ -8,7 +8,8 @@
         class="geocoder-map img-rounded"
         style="height: {{ field_type.config.height }}px; width: 100%;"
         data-max-zoom="{{ field_type.config.max_zoom }}"
-        data-zoom="{{ field_type.config.zoom }}"></div>
+        data-zoom="{{ field_type.config.zoom }}"
+        data-include="https://maps.google.com/maps/api/js?sensor=false&key={{ field_type.key }}"></div>
 
 <small class="text-muted match">
     {{ field_type.value.formatted }}

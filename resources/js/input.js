@@ -1,4 +1,8 @@
-google.maps.event.addDomListener(window, 'load', function () {
+$(document).on('ajaxComplete ready', function () {
+
+    if (typeof(google) == 'undefined') {
+        $.getScript($(this).data('include'));
+    }
 
     var geocoder = new google.maps.Geocoder();
 
