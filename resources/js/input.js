@@ -3,7 +3,9 @@ google.maps.event.addDomListener(window, 'load', function () {
     var geocoder = new google.maps.Geocoder();
 
     // Initialize the geocoders.
-    $('.geocoder-map').each(function () {
+    $('.geocoder-map:not([data-initialized])').each(function () {
+
+        $(this).attr('data-initialized', '');
 
         // Define the inputs.
         var match = $(this).closest('.form-group').find('.match');
