@@ -1,6 +1,6 @@
 {{ asset_script("https://maps.google.com/maps/api/js?sensor=false&key=" ~ field_type.key) }}
 
-<div id="{{ field_type.input_name }}-map" style="{{ 'height: ' ~ options.get('height', 500) ~ 'px;' }};"></div>
+<div id="{{ field_type.input_name }}-map" style="{{ options.height ? 'height: ' ~ options.height ~ 'px;' }};"></div>
 
 <script type="text/javascript">
 
