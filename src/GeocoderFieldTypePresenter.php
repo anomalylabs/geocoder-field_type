@@ -1,9 +1,11 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
 use Anomaly\GeocoderFieldType\Criteria\EmbedCriteria;
+use Anomaly\SettingsModule\Setting\Contract\SettingRepositoryInterface;
 use Anomaly\Streams\Platform\Addon\FieldType\FieldTypePresenter;
 use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Support\Collection;
+use Cache;
 use Collective\Html\HtmlBuilder;
 use Illuminate\Contracts\View\Factory;
 
@@ -54,11 +56,12 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      * @param Image       $image
      * @param             $object
      */
-    public function __construct(HtmlBuilder $html, Factory $view, Image $image, $object)
+    public function __construct(HtmlBuilder $html, Factory $view, Image $image, $object, SettingRepositoryInterface $settings)
     {
-        $this->html  = $html;
-        $this->view  = $view;
-        $this->image = $image;
+        $this->html     = $html;
+        $this->view     = $view;
+        $this->image    = $image;
+        $this->settings = $settings;
 
         parent::__construct($object);
     }
@@ -224,6 +227,118 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
     public function longitude($formatted = false)
     {
         return array_get($this->position($formatted), 'longitude');
+    }
+
+    /**
+     * Revese geocodes the location.
+     *
+     * @return object
+     */
+    public function reverseGeocode()
+    {
+        $minutes = $this->settings->get('anomaly.field_type.geocoder::cache_time')->value; // The cache entry duration in minutes
+        $latlng  = $this->latitude() . "," . $this->longitude(); // The format for both the api call and cache entry name
+        // Build the url for the api call
+        $url     = "https://maps.googleapis.com/maps/api/geocode/json?" .
+                   "latlng=" . $latlng .
+                   "&key="   . $this->object->key();
+
+        if (Cache::has($latlng)) {
+            // If the data that we're looking for is already cached, return that
+            return Cache::get($latlng);
+        } else {
+            // If the data that we're looking for doesn't exist in the cache yet
+            // make an api call and extract the first result.
+            $json   = file_get_contents($url);
+            $object = json_decode($json);
+            $data   = $object->results[0];
+
+            // Cache the data
+            Cache::put($latlng, $data, $minutes);
+
+            return $data;
+        }
+    }
+
+    /**
+     * Return a address_components from the reverse geocode data
+     *
+     * @return string
+     */
+    public function getAddressComponent($component_name, $short_name = false)
+    {
+        $component          = null;
+        $address_components = $this->reverseGeocode()->address_components; // Get all address components
+
+        foreach ($address_components as $address_component) {
+            // Loop through all of the adress components
+            if (in_array($component_name, $address_component->types)) {
+                // If the component contains the name we're looking as type, set is as the component
+                $component = $short_name ? $address_component->short_name : $address_component->long_name;
+            }
+        }
+
+        return $component;
+    }
+
+    /**
+     * Return the country name
+     *
+     * @return string
+     */
+    public function country($short_name = false)
+    {
+        return $this->getAddressComponent('country', $short_name);
+    }
+
+    /**
+     * Return the state
+     *
+     * @return string
+     */
+    public function state($short_name = false)
+    {
+        return $this->getAddressComponent('administrative_area_level_1', $short_name);
+    }
+
+    /**
+     * Return the city name
+     *
+     * @return string
+     */
+    public function city($short_name = false)
+    {
+        return $this->getAddressComponent('locality', $short_name);
+    }
+
+    /**
+     * Return the street name
+     *
+     * @return string
+     */
+    public function street($short_name = false)
+    {
+        return $this->getAddressComponent('route', $short_name);
+    }
+
+    /**
+     * Return the street number
+     *
+     * @return string
+     */
+    public function street_number($short_name = false)
+    {
+        return $this->getAddressComponent('street_number', $short_name);
+    }
+
+    /**
+     * Return the postal code
+     *
+     * @return string
+     */
+    public function postal_code($short_name = false)
+    {
+        return $this->getAddressComponent('postal_code', $short_name);
     }
 
     /**
