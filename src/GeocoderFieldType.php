@@ -1,6 +1,7 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
 use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
+use Doctrine\DBAL\Types\Type;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 
@@ -79,6 +80,21 @@ class GeocoderFieldType extends FieldType
     public function key()
     {
         return $this->configuration->get($this->getNamespace('google.key'));
+    }
+
+    /**
+     * Return if spatial utilities
+     * are installed and enabled.
+     *
+     * @return bool
+     */
+    public function isSpatialEnabled()
+    {
+        if (isset($this->cache[__METHOD__])) {
+            return $this->cache[__METHOD__];
+        }
+
+        return $this->cache[__METHOD__] = Type::hasType('point');
     }
 
     /**

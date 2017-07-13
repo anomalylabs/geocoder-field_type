@@ -26,7 +26,7 @@ class GeocoderFieldTypeGeocoder
     protected $cache;
 
     /**
-     * Create a new GeocoderFieldTypeAddress instance.
+     * Create a new GeocoderFieldTypePoint instance.
      *
      * @param GeocoderFieldType $fieldType
      * @param Repository        $cache
@@ -38,10 +38,10 @@ class GeocoderFieldTypeGeocoder
     }
 
     /**
-     * Convert an address to a geocoded object.
+     * Convert an address to a point.
      *
      * @param $address
-     * @return GeocoderFieldTypeAddress|null
+     * @return GeocoderFieldTypePoint|null
      */
     public function convert($address)
     {
@@ -68,6 +68,6 @@ class GeocoderFieldTypeGeocoder
 
         $result['address'] = $address;
 
-        return new GeocoderFieldTypeAddress($result);
+        return new GeocoderFieldTypePoint($result);
     }
 }

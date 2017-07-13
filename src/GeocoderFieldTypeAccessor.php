@@ -1,6 +1,8 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
 use Anomaly\Streams\Platform\Addon\FieldType\FieldTypeAccessor;
+use Grimzy\LaravelMysqlSpatial\Types\Point;
+use Illuminate\Database\Connection;
 
 /**
  * Class GeocoderFieldTypeAccessor
@@ -27,6 +29,13 @@ class GeocoderFieldTypeAccessor extends FieldTypeAccessor
     ];
 
     /**
+     * The field type instance.
+     *
+     * @var GeocoderFieldType
+     */
+    protected $fieldType;
+
+    /**
      * Set the value.
      *
      * @param $value
@@ -39,8 +48,39 @@ class GeocoderFieldTypeAccessor extends FieldTypeAccessor
         $attributes = $entry->getAttributes();
 
         if (is_array($value)) {
+
             foreach ($this->properties as $property) {
                 $attributes[$this->fieldType->getColumnName() . '_' . $property] = array_pull($value, $property);
+            }
+
+            /**
+             * If the spatial library is installed
+             * then use the lat/long for the points.
+             */
+            if ($this->fieldType->isSpatialEnabled()) {
+
+                /* @var Connection $connection */
+                $connection = app('db')->connection();
+
+                $attributes[$this->fieldType->getColumnName() . '_point'] = $connection->raw(
+                    sprintf(
+                        "GeomFromText('%s')",
+                        (new Point(
+                            array_get($attributes, $this->fieldType->getColumnName() . '_latitude'),
+                            array_get($attributes, $this->fieldType->getColumnName() . '_longitude')
+                        ))->toWKT()
+                    )
+                );
+
+                $attributes[$this->fieldType->getColumnName() . '_formatted_point'] = $connection->raw(
+                    sprintf(
+                        "GeomFromText('%s')",
+                        (new Point(
+                            array_get($attributes, $this->fieldType->getColumnName() . '_formatted_latitude'),
+                            array_get($attributes, $this->fieldType->getColumnName() . '_formatted_longitude')
+                        ))->toWKT()
+                    )
+                );
             }
         }
 
@@ -60,15 +100,16 @@ class GeocoderFieldTypeAccessor extends FieldTypeAccessor
      */
     public function get()
     {
-        $entry = $this->fieldType->getEntry();
+        $entry  = $this->fieldType->getEntry();
+        $prefix = $this->fieldType->getColumnName();
 
         $attributes = $entry->getAttributes();
 
         return array_combine(
             $this->properties,
             array_map(
-                function ($property) use ($attributes) {
-                    return array_get($attributes, $this->fieldType->getColumnName() . '_' . $property);
+                function ($property) use ($attributes, $prefix) {
+                    return array_get($attributes, $prefix . '_' . $property);
                 },
                 $this->properties
             )

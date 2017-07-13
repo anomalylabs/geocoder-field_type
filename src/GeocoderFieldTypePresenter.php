@@ -5,6 +5,7 @@ use Anomaly\Streams\Platform\Addon\FieldType\FieldTypePresenter;
 use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Support\Collection;
 use Collective\Html\HtmlBuilder;
+use Grimzy\LaravelMysqlSpatial\Types\Point;
 use Illuminate\Contracts\View\Factory;
 
 /**
@@ -194,7 +195,7 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      * Return the marker position.
      *
      * @param bool $formatted
-     * @return string
+     * @return array
      */
     public function position($formatted = false)
     {
@@ -224,6 +225,17 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
     public function longitude($formatted = false)
     {
         return array_get($this->position($formatted), 'longitude');
+    }
+
+    /**
+     * Return a geometric point interface.
+     *
+     * @param bool $formatted
+     * @return Point
+     */
+    public function point($formatted = false)
+    {
+        return new Point($this->latitude($formatted), $this->longitude($formatted));
     }
 
     /**

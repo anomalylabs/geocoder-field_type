@@ -30,6 +30,13 @@ class GeocoderFieldTypeSchema extends FieldTypeSchema
     ];
 
     /**
+     * The field type instance.
+     *
+     * @var GeocoderFieldType
+     */
+    protected $fieldType;
+
+    /**
      * Add the field type columns.
      *
      * @param Blueprint           $table
@@ -45,6 +52,11 @@ class GeocoderFieldTypeSchema extends FieldTypeSchema
         $table->decimal($this->fieldType->getField() . '_longitude', 10, 7)->nullable($nullable);
         $table->decimal($this->fieldType->getField() . '_formatted_latitude', 10, 7)->nullable($nullable);
         $table->decimal($this->fieldType->getField() . '_formatted_longitude', 10, 7)->nullable($nullable);
+
+        if ($this->fieldType->isSpatialEnabled()) {
+            $table->addColumn('point', $this->fieldType->getField() . '_point')->nullable($nullable);
+            $table->addColumn('point', $this->fieldType->getField() . '_formatted_point')->nullable($nullable);
+        }
 
         if ($assignment->isUnique() && !$assignment->isTranslatable()) {
             $table->unique(
@@ -65,6 +77,14 @@ class GeocoderFieldTypeSchema extends FieldTypeSchema
         foreach ($this->suffixes as $suffix) {
             $table->renameColumn($from->getColumnName() . $suffix, $this->fieldType->getColumnName() . $suffix);
         }
+
+        if ($this->fieldType->isSpatialEnabled()) {
+            $table->renameColumn($from->getColumnName() . '_point', $this->fieldType->getColumnName() . '_point');
+            $table->renameColumn(
+                $from->getColumnName() . '_formatted_point',
+                $this->fieldType->getColumnName() . '_formatted_point'
+            );
+        }
     }
 
     /**
@@ -83,6 +103,12 @@ class GeocoderFieldTypeSchema extends FieldTypeSchema
         $table->decimal($this->fieldType->getField() . '_longitude', 10, 7)->nullable($nullable)->change();
         $table->decimal($this->fieldType->getField() . '_formatted_latitude', 10, 7)->nullable($nullable)->change();
         $table->decimal($this->fieldType->getField() . '_formatted_longitude', 10, 7)->nullable($nullable)->change();
+
+        if ($this->fieldType->isSpatialEnabled()) {
+            $table->addColumn('point', $this->fieldType->getField() . '_point')->nullable($nullable)->change();
+            $table->addColumn('point', $this->fieldType->getField() . '_formatted_point')->nullable($nullable)->change(
+            );
+        }
 
         /**
          * Mark the column unique if desired and not translatable.
@@ -123,6 +149,11 @@ class GeocoderFieldTypeSchema extends FieldTypeSchema
     {
         foreach ($this->suffixes as $suffix) {
             $table->dropColumn($this->fieldType->getColumnName() . $suffix);
+        }
+
+        if ($this->fieldType->isSpatialEnabled()) {
+            $table->dropColumn($this->fieldType->getColumnName() . '_point');
+            $table->dropColumn($this->fieldType->getColumnName() . '_formatted_point');
         }
     }
 }

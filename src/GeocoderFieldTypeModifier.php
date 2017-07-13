@@ -29,10 +29,16 @@ class GeocoderFieldTypeModifier extends FieldTypeModifier
         $this->fieldType = $fieldType;
     }
 
+    /**
+     * Modify the value for storage.
+     *
+     * @param $value
+     * @return array|mixed
+     */
     public function modify($value)
     {
         if (is_string($value)) {
-            
+
             return $this->fieldType
                 ->newGeocoder()
                 ->convert($value)

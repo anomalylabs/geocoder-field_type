@@ -1,13 +1,15 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
+use Grimzy\LaravelMysqlSpatial\Types\Point;
+
 /**
- * Class GeocoderFieldTypeAddress
+ * Class GeocoderFieldTypePoint
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class GeocoderFieldTypeAddress
+class GeocoderFieldTypePoint
 {
 
     /**
@@ -18,7 +20,7 @@ class GeocoderFieldTypeAddress
     protected $result;
 
     /**
-     * Create a new GeocoderFieldTypeAddress instance.
+     * Create a new GeocoderFieldTypePoint instance.
      *
      * @param array $result
      */
@@ -184,6 +186,16 @@ class GeocoderFieldTypeAddress
     public function longitude()
     {
         return array_get((array)$this->location(), 'lng');
+    }
+
+    /**
+     * Return a new geometric point interface.
+     *
+     * @return Point
+     */
+    public function point()
+    {
+        return new Point($this->latitude(), $this->longitude());
     }
 
     /**

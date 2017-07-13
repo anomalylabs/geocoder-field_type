@@ -21,6 +21,9 @@
     "support": {
         "email": "support@anomaly.is"
     },
+    "require": {
+        "grimzy/laravel-mysql-spatial": "~1.0.0"
+    },
     "autoload": {
         "psr-4": {
             "Anomaly\\GeocoderFieldType\\": "src/"
