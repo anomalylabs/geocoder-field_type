@@ -2,6 +2,7 @@
 
 use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Container\Container;
 
 /**
  * Class GeocoderFieldType
@@ -52,12 +53,21 @@ class GeocoderFieldType extends FieldType
     protected $configuration;
 
     /**
+     * The service container.
+     *
+     * @var Container
+     */
+    protected $container;
+
+    /**
      * Create a new GeocoderFieldType instance.
      *
+     * @param Container  $container
      * @param Repository $configuration
      */
-    public function __construct(Repository $configuration)
+    public function __construct(Repository $configuration, Container $container)
     {
+        $this->container     = $container;
         $this->configuration = $configuration;
     }
 
@@ -90,5 +100,20 @@ class GeocoderFieldType extends FieldType
     public function getUniqueColumnName()
     {
         return $this->field . '_formatted';
+    }
+
+    /**
+     * Return a new geocoder.
+     *
+     * @return GeocoderFieldTypeGeocoder
+     */
+    public function newGeocoder()
+    {
+        return $this->container->make(
+            GeocoderFieldTypeGeocoder::class,
+            [
+                'fieldType' => $this,
+            ]
+        );
     }
 }
