@@ -25,9 +25,9 @@ class GeocoderFieldTypePlugin extends Plugin
     {
         return [
             new \Twig_SimpleFunction(
-                'point',
-                function ($parameters) {
-                    return $this->dispatch(new GetPoint($parameters));
+                'geocode',
+                function ($address) {
+                    return $this->dispatch(new GetPoint($address));
                 }
             ),
         ];

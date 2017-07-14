@@ -1,9 +1,8 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
 use Anomaly\GeocoderFieldType\Command\BindCriteriaHooks;
+use Anomaly\GeocoderFieldType\Command\BindQueryHooks;
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
-use Anomaly\Streams\Platform\Entry\EntryCriteria;
-use Anomaly\Streams\Platform\Entry\EntryQueryBuilder;
 
 /**
  * Class GeocoderFieldTypeServiceProvider
@@ -35,28 +34,7 @@ class GeocoderFieldTypeServiceProvider extends AddonServiceProvider
             return;
         }
 
-        EntryCriteria::_bind(
-            'select_distance',
-            function ($field, $point) {
-
-                $this
-                    ->getFieldTypeCriteria($field)
-                    ->selectDistance($point, array_get(func_get_args(), 2, false));
-
-                return $this;
-            }
-        );
-
-        EntryQueryBuilder::_bind(
-            'select_distance',
-            function ($field, $point) {
-
-                $this
-                    ->getFieldTypeCriteria($field)
-                    ->selectDistance($point, array_get(func_get_args(), 2, false));
-
-                return $this;
-            }
-        );
+        $this->dispatch(new BindCriteriaHooks());
+        $this->dispatch(new BindQueryHooks());
     }
 }
