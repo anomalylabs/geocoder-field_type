@@ -1,7 +1,6 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
-use Anomaly\GeocoderFieldType\Command\BindCriteriaHooks;
-use Anomaly\GeocoderFieldType\Command\BindQueryHooks;
+use Anomaly\GeocoderFieldType\Command\ExtendBuilder;
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 
 /**
@@ -34,7 +33,6 @@ class GeocoderFieldTypeServiceProvider extends AddonServiceProvider
             return;
         }
 
-        $this->dispatch(new BindCriteriaHooks());
-        $this->dispatch(new BindQueryHooks());
+        $this->dispatch(new ExtendBuilder());
     }
 }
