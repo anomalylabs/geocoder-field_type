@@ -25,7 +25,7 @@ class ExtendBuilder
                 /* @var EntryQueryBuilder $this */
                 $this
                     ->getFieldTypeCriteria($field)
-                    ->selectDistance($point, array_get(func_get_args(), 2, false));
+                    ->selectDistance($point, array_get(func_get_args(), 2, false), array_get(func_get_args(), 3, null));
 
                 return $this;
             }

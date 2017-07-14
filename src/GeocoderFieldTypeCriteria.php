@@ -22,14 +22,16 @@ class GeocoderFieldTypeCriteria extends FieldTypeCriteria
      * @param      $point
      * @param bool $formatted
      */
-    public function selectDistance($point, $formatted = false)
+    public function selectDistance($point, $formatted = false, $as = null)
     {
         $point  = $this->getPoint($point);
         $column = $this->getColumn($formatted, false);
 
+        $as = $as ?: $column . '_distance';
+
         $this->query->selectDefault()->addSelect(
             $this->query->getConnection()->raw(
-                "ST_Distance(`{$column}_point`, GeomFromText('{$point->toWkt()}')) AS {$column}_distance"
+                "ST_Distance(`{$column}_point`, GeomFromText('{$point->toWkt()}')) AS {$as}"
             )
         );
     }
