@@ -1,6 +1,6 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
 use Illuminate\Contracts\Cache\Repository;
 
 /**
@@ -29,7 +29,7 @@ class GeocoderFieldTypeGeocoder
      * Create a new GeocoderFieldTypePoint instance.
      *
      * @param GeocoderFieldType $fieldType
-     * @param Repository        $cache
+     * @param Repository $cache
      */
     public function __construct(GeocoderFieldType $fieldType, Repository $cache)
     {
@@ -51,14 +51,13 @@ class GeocoderFieldTypeGeocoder
 
                 return (new Client())->get(
                     'https://maps.googleapis.com/maps/api/geocode/json',
-                    null,
                     [
                         'query' => [
                             'address' => urlencode($address),
                             'key'     => $this->fieldType->key(),
                         ],
                     ]
-                )->send()->getBody(true);
+                )->getBody();
             }
         );
 

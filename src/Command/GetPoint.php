@@ -1,7 +1,7 @@
 <?php namespace Anomaly\GeocoderFieldType\Command;
 
 use Anomaly\GeocoderFieldType\GeocoderFieldTypeGeocoder;
-use Grimzy\LaravelMysqlSpatial\Types\Point;
+use Anomaly\GeocoderFieldType\Spatial\Point;
 
 /**
  * Class GetPoint

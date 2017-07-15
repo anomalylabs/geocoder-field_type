@@ -1,7 +1,7 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
 use Anomaly\Streams\Platform\Addon\FieldType\FieldTypeAccessor;
-use Grimzy\LaravelMysqlSpatial\Types\Point;
+use Anomaly\GeocoderFieldType\Spatial\Point;
 use Illuminate\Database\Connection;
 
 /**
@@ -68,7 +68,7 @@ class GeocoderFieldTypeAccessor extends FieldTypeAccessor
                         (new Point(
                             array_get($attributes, $this->fieldType->getColumnName() . '_latitude'),
                             array_get($attributes, $this->fieldType->getColumnName() . '_longitude')
-                        ))->toWKT()
+                        ))->text()
                     )
                 );
 
@@ -78,7 +78,7 @@ class GeocoderFieldTypeAccessor extends FieldTypeAccessor
                         (new Point(
                             array_get($attributes, $this->fieldType->getColumnName() . '_formatted_latitude'),
                             array_get($attributes, $this->fieldType->getColumnName() . '_formatted_longitude')
-                        ))->toWKT()
+                        ))->text()
                     )
                 );
             }

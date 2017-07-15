@@ -1,7 +1,6 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
 use Anomaly\Streams\Platform\Addon\FieldType\FieldType;
-use Doctrine\DBAL\Types\Type;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 
@@ -63,7 +62,7 @@ class GeocoderFieldType extends FieldType
     /**
      * Create a new GeocoderFieldType instance.
      *
-     * @param Container  $container
+     * @param Container $container
      * @param Repository $configuration
      */
     public function __construct(Repository $configuration, Container $container)
@@ -94,7 +93,7 @@ class GeocoderFieldType extends FieldType
             return $this->cache[__METHOD__];
         }
 
-        return $this->cache[__METHOD__] = Type::hasType('point');
+        return $this->cache[__METHOD__] = config($this->getNamespace('spatial.enabled'));
     }
 
     /**

@@ -1,9 +1,9 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
 use Anomaly\GeocoderFieldType\Command\GetPoint;
+use Anomaly\GeocoderFieldType\Spatial\Point;
 use Anomaly\Streams\Platform\Addon\FieldType\FieldTypeCriteria;
 use Anomaly\Streams\Platform\Support\Length;
-use Grimzy\LaravelMysqlSpatial\Types\Point;
 
 /**
  * Class GeocoderFieldTypeCriteria
@@ -31,7 +31,7 @@ class GeocoderFieldTypeCriteria extends FieldTypeCriteria
 
         $this->query->selectDefault()->addSelect(
             $this->query->getConnection()->raw(
-                "ST_Distance(`{$column}_point`, GeomFromText('{$point->toWkt()}')) AS {$as}"
+                "ST_Distance(`{$column}_point`, GeomFromText('{$point->text()}')) AS {$as}"
             )
         );
     }
@@ -56,7 +56,7 @@ class GeocoderFieldTypeCriteria extends FieldTypeCriteria
         }
 
         $this->query->whereRaw(
-            "ST_Distance(`{$column}`, GeomFromText('{$point->toWkt()}')) {$operator} {$distance}"
+            "ST_Distance(`{$column}`, GeomFromText('{$point->text()}')) {$operator} {$distance}"
         );
     }
 
@@ -80,7 +80,7 @@ class GeocoderFieldTypeCriteria extends FieldTypeCriteria
         }
 
         $this->query->orWhereRaw(
-            "ST_Distance(`{$column}`, GeomFromText('{$point->toWkt()}')) {$operator} {$distance}"
+            "ST_Distance(`{$column}`, GeomFromText('{$point->text()}')) {$operator} {$distance}"
         );
     }
 

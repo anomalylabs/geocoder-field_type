@@ -1,6 +1,6 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
-use Grimzy\LaravelMysqlSpatial\Types\Point;
+use Anomaly\GeocoderFieldType\Spatial\Point;
 
 /**
  * Class GeocoderFieldTypePoint
