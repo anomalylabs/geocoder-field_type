@@ -57,7 +57,7 @@ class GeocoderFieldTypeGeocoder
                             'key'     => $this->fieldType->key(),
                         ],
                     ]
-                )->getBody();
+                )->getBody()->getContents();
             }
         );
 
