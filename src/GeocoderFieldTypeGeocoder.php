@@ -69,4 +69,37 @@ class GeocoderFieldTypeGeocoder
 
         return new GeocoderFieldTypePoint($result);
     }
+
+    /**
+     * Convert an address to a point.
+     *
+     * @param $latitude
+     * @param $longitude
+     * @return GeocoderFieldTypePoint|null
+     * @internal param $address
+     */
+    public function reverse($latitude, $longitude)
+    {
+        $json = $this->cache->rememberForever(
+            __METHOD__ . md5($latitude . $longitude),
+            function () use ($latitude, $longitude) {
+
+                return (new Client())->get(
+                    'https://maps.googleapis.com/maps/api/geocode/json',
+                    [
+                        'query' => [
+                            'latlng' => $latitude . ',' . $longitude,
+                            'key'    => $this->fieldType->key(),
+                        ],
+                    ]
+                )->getBody()->getContents();
+            }
+        );
+
+        if (!$result = array_get(json_decode($json, true), 'results.0')) {
+            return null;
+        }
+
+        return new GeocoderFieldTypePoint($result);
+    }
 }
