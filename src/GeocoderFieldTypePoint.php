@@ -169,6 +169,16 @@ class GeocoderFieldTypePoint
     }
 
     /**
+     * Return the country code.
+     *
+     * @return string|null
+     */
+    public function countryCode()
+    {
+        return $this->componentValue('country', 'short');
+    }
+
+    /**
      * Return the location.
      *
      * @return array
