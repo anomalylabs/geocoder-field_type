@@ -99,6 +99,16 @@ class GeocoderFieldTypePoint
     }
 
     /**
+     * Return the street number.
+     *
+     * @return string|null
+     */
+    public function streetNumber()
+    {
+        return $this->componentValue('street_number');
+    }
+
+    /**
      * Return the street address.
      *
      * @return string|null
