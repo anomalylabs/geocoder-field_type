@@ -1,6 +1,7 @@
 <?php namespace Anomaly\GeocoderFieldType\Command;
 
 use Anomaly\GeocoderFieldType\GeocoderFieldTypeGeocoder;
+use Anomaly\GeocoderFieldType\GeocoderFieldTypePoint;
 use Anomaly\GeocoderFieldType\Spatial\Point;
 
 /**
@@ -43,7 +44,11 @@ class GetPoint
         }
 
         if (is_string($this->parameters)) {
-            return $geocoder->convert($this->parameters)->point();
+            $this->parameters = $geocoder->convert($this->parameters);
+        }
+
+        if ($this->parameters instanceof GeocoderFieldTypePoint) {
+            return $this->parameters->point();
         }
 
         return null;
