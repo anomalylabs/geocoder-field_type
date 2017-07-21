@@ -45,6 +45,10 @@ class GeocoderFieldTypeGeocoder
      */
     public function convert($address)
     {
+        if (!$address) {
+            return null;
+        }
+
         $json = $this->cache->rememberForever(
             __METHOD__ . md5($address),
             function () use ($address) {
