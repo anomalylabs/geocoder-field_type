@@ -149,6 +149,16 @@ class GeocoderFieldTypePoint
     }
 
     /**
+     * Return the state code.
+     *
+     * @return string|null
+     */
+    public function stateCode()
+    {
+        return $this->componentValue('administrative_area_level_1', 'short');
+    }
+
+    /**
      * Return the county.
      *
      * @return string|null
