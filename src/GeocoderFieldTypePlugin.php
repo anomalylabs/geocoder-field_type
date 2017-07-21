@@ -1,6 +1,6 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
-use Anomaly\GeocoderFieldType\Command\GetPoint;
+use Anomaly\GeocoderFieldType\Command\Geocode;
 use Anomaly\Streams\Platform\Addon\Plugin\Plugin;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
@@ -26,8 +26,8 @@ class GeocoderFieldTypePlugin extends Plugin
         return [
             new \Twig_SimpleFunction(
                 'geocode',
-                function ($address) {
-                    return $this->dispatch(new GetPoint($address));
+                function ($parameters) {
+                    return $this->dispatch(new Geocode($parameters));
                 }
             ),
         ];
