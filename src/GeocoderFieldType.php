@@ -63,7 +63,7 @@ class GeocoderFieldType extends FieldType
     /**
      * Create a new GeocoderFieldType instance.
      *
-     * @param Container  $container
+     * @param Container $container
      * @param Repository $configuration
      */
     public function __construct(Repository $configuration, Container $container)
@@ -116,6 +116,16 @@ class GeocoderFieldType extends FieldType
     public function getUniqueColumnName()
     {
         return $this->field . '_formatted';
+    }
+
+    /**
+     * Get the value.
+     *
+     * @return null|string|array
+     */
+    public function getValue()
+    {
+        return parent::getValue();
     }
 
     /**

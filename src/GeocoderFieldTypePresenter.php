@@ -1,11 +1,12 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
+use Anomaly\GeocoderFieldType\Command\Geocode;
 use Anomaly\GeocoderFieldType\Criteria\EmbedCriteria;
+use Anomaly\GeocoderFieldType\Spatial\Point;
 use Anomaly\Streams\Platform\Addon\FieldType\FieldTypePresenter;
 use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Support\Collection;
 use Collective\Html\HtmlBuilder;
-use Anomaly\GeocoderFieldType\Spatial\Point;
 use Illuminate\Contracts\View\Factory;
 
 /**
@@ -51,8 +52,8 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      * Create a new GeocoderFieldTypePresenter instance.
      *
      * @param HtmlBuilder $html
-     * @param Factory     $view
-     * @param Image       $image
+     * @param Factory $view
+     * @param Image $image
      * @param             $object
      */
     public function __construct(HtmlBuilder $html, Factory $view, Image $image, $object)
@@ -105,7 +106,7 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      * Return an embed map.
      *
      * @param array $options
-     * @param bool  $formatted
+     * @param bool $formatted
      * @return null|string
      */
     public function embed(array $options = [], $formatted = false)
@@ -192,6 +193,15 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
     }
 
     /**
+     * @param bool $formatted
+     * @return mixed
+     */
+    public function address($formatted = false)
+    {
+        return array_get((array)$this->object->getValue(), ($formatted ? 'formatted' : 'address'));
+    }
+
+    /**
      * Return the marker position.
      *
      * @param bool $formatted
@@ -199,8 +209,8 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      */
     public function position($formatted = false)
     {
-        $latitude  = array_get($this->object->getValue(), $formatted ? 'formatted_latitude' : 'latitude');
-        $longitude = array_get($this->object->getValue(), $formatted ? 'formatted_longitude' : 'longitude');
+        $latitude  = array_get((array)$this->object->getValue(), $formatted ? 'formatted_latitude' : 'latitude');
+        $longitude = array_get((array)$this->object->getValue(), $formatted ? 'formatted_longitude' : 'longitude');
 
         return compact('latitude', 'longitude');
     }
@@ -239,6 +249,16 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
     }
 
     /**
+     * Return a geocoded point interface.
+     *
+     * @return GeocoderFieldTypePoint
+     */
+    public function geocode($formatted = false)
+    {
+        return $this->dispatch(new Geocode($this->address($formatted)));
+    }
+
+    /**
      * Return the value key if it exists.
      *
      * @param string $key
@@ -246,7 +266,7 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      */
     public function __get($key)
     {
-        if ($value = array_get($this->object->getValue(), $key)) {
+        if ($value = array_get((array)$this->object->getValue(), $key)) {
             return $value;
         }
 
