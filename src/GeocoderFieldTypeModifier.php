@@ -39,10 +39,13 @@ class GeocoderFieldTypeModifier extends FieldTypeModifier
     {
         if (is_string($value)) {
 
-            return $this->fieldType
-                ->newGeocoder()
-                ->convert($value)
-                ->storage();
+            $geocoder = $this->fieldType->newGeocoder();
+
+            if (!$point = $geocoder->convert($value)) {
+                return null;
+            }
+
+            return $point->storage();
         }
 
         return parent::modify($value);
