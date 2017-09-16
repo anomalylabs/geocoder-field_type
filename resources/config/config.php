@@ -11,8 +11,9 @@ return [
     'height' => [
         'type'   => 'anomaly.field_type.integer',
         'config' => [
-            'min'  => 200,
-            'step' => 10,
+            'max'  => 1000,
+            'min'  => 50,
+            'step' => 1,
         ],
     ],
 ];
