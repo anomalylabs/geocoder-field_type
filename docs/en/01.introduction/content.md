@@ -1,0 +1,132 @@
+## Introduction[](#introduction)
+
+A powerful geocoding field type powered by the Google Maps API.
+
+<div class="alert alert-danger">**Heads Up:** The Geocoder field type is a paid addon! Please checkout our store or ask about our developer partnership for repository access.</div>
+
+
+### Configuration[](#introduction/configuration)
+
+Below is the full configuration available with defaults values:
+
+    "example" => [
+        "type"   => "anomaly.field_type.geocoder",
+        "config" => [
+            "zoom"          => 13,
+            "height"        => 400
+        ]
+    ]
+
+###### Configuration
+
+<table class="table table-bordered table-striped">
+
+<thead>
+
+<tr>
+
+<th>Key</th>
+
+<th>Example</th>
+
+<th>Description</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>
+
+zoom
+
+</td>
+
+<td>
+
+10
+
+</td>
+
+<td>
+
+The input map's zoom.
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+height
+
+</td>
+
+<td>
+
+500
+
+</td>
+
+<td>
+
+The input map's height.
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+
+#### Addon Configuration[](#introduction/configuration/addon-configuration)
+
+#### Google API
+
+A Google maps and geocoding API key can be provided by the field type configuration.
+
+You can set the key by publishing the field type and setting the value:
+
+    php artisan addon:publish anomaly.field_type.geocoder // See google.php config file.
+
+You can also set the key by setting the `GEOCODER_KEY` value in your `.env` file.
+
+
+### Installation[](#introduction/installation)
+
+The Geocoder field type is a paid addon and requires purchasing from the addon store OR a paid subscription.
+
+##### Installing from Store Download
+
+You can install the Templates module by downloading the addon and placing it within your site's addon directory:
+
+    /addons/{application_ref}/anomaly/*
+
+##### Installing with Composer Subscription
+
+You can install the Geocoder field type with Composer as a VCS repository if you have a subscription:
+
+    {
+         "require": {
+            "anomaly/geocoder-field_type": "~1.1.0"
+        },
+        "repositories": [
+            {
+                "type": "vcs",
+                "url": "https://github.com/anomalylabs/geocoder-field_type"
+            }
+        ]
+    }
+
+##### Spatial Features
+
+In order to enable spatial features you must register `Grimzy\LaravelMysqlSpatial\SpatialServiceProvider` in your `config/app.php` file before `App` service providers.
+
+![Spatial Service Provider](/files/documentation/geocoder-field_type-spatial-service-provider.jpg "Spatial Service Provider")

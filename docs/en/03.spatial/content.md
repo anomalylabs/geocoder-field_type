@@ -1,0 +1,419 @@
+## Spatial[](#spatial)
+
+The geocoder field type comes with a set of optional features for creating and working with spatial data.
+
+
+### Query Builder[](#spatial/query-builder)
+
+This section will go over how to use the spatial features added to Laravel's query builder.
+
+
+#### EloquentQueryBuilder::selectDistance()[](#spatial/query-builder/eloquentquerybuilder-selectdistance)
+
+The `selectDistance` method allows you to select the calculated distance from a provided `point`. The returned value is in `degrees`.
+
+###### Returns: `\Anomaly\Streams\Platform\Model\EloquentQueryBuilder`
+
+###### Arguments
+
+<table class="table table-bordered table-striped">
+
+<thead>
+
+<tr>
+
+<th>Key</th>
+
+<th>Required</th>
+
+<th>Type</th>
+
+<th>Default</th>
+
+<th>Description</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>
+
+$field
+
+</td>
+
+<td>
+
+true
+
+</td>
+
+<td>
+
+string
+
+</td>
+
+<td>
+
+none
+
+</td>
+
+<td>
+
+The geocoder field slug you would like to select distance for.
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+$point
+
+</td>
+
+<td>
+
+true
+
+</td>
+
+<td>
+
+mixed
+
+</td>
+
+<td>
+
+none
+
+</td>
+
+<td>
+
+An address, lat/lng array, or `Point` instance.
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+$formatted
+
+</td>
+
+<td>
+
+false
+
+</td>
+
+<td>
+
+bool
+
+</td>
+
+<td>
+
+false
+
+</td>
+
+<td>
+
+A flag to use the formatted point instead of the adjusted marker point.
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+$as
+
+</td>
+
+<td>
+
+false
+
+</td>
+
+<td>
+
+string
+
+</td>
+
+<td>
+
+{$field}_distance
+
+</td>
+
+<td>
+
+An optional name for the selected distance.
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+###### Example
+
+    use Anomaly\Streams\Platform\Support\Length;
+
+    $locations = LocationModel::selectDistance('address', 'Davenport, IA')->get();
+
+    foreach ($locations as $location) {
+        echo (new Length($location->address_distance, 'deg'))->miles();
+    }
+
+    $closest = LocationModel::selectDistance('address', 'Davenport, IA')->orderBy('address_distance', 'ASC')->first();
+
+###### Twig
+
+    {% set locations = entries('example', 'locations').selectDistance('address', 'Davenport, IA').get() %}
+
+    {% for location in locations %}
+    	{{ length(location.address_distance, 'deg').miles }}
+    {% endfor %}
+
+    {% set closest = entries('example', 'locations').selectDistance('address', 'Davenport, IA').orderBy('address_distance', 'ASC').first() %}
+
+
+#### EloquentQueryBuilder::whereDistance()[](#spatial/query-builder/eloquentquerybuilder-wheredistance)
+
+The `whereDistance` method lets you add where restrictions based on distance.
+
+###### Returns: `\Anomaly\Streams\Platform\Model\EloquentQueryBuilder`
+
+###### Arguments
+
+<table class="table table-bordered table-striped">
+
+<thead>
+
+<tr>
+
+<th>Key</th>
+
+<th>Required</th>
+
+<th>Type</th>
+
+<th>Default</th>
+
+<th>Description</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>
+
+$field
+
+</td>
+
+<td>
+
+true
+
+</td>
+
+<td>
+
+string
+
+</td>
+
+<td>
+
+none
+
+</td>
+
+<td>
+
+The geocoder field slug you would like to select distance for.
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+$point
+
+</td>
+
+<td>
+
+true
+
+</td>
+
+<td>
+
+mixed
+
+</td>
+
+<td>
+
+none
+
+</td>
+
+<td>
+
+An address, lat/lng array, or `Point` instance.
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+$operator
+
+</td>
+
+<td>
+
+true
+
+</td>
+
+<td>
+
+string
+
+</td>
+
+<td>
+
+none
+
+</td>
+
+<td>
+
+A valid where operator (<=, >=, etc).
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+$distance
+
+</td>
+
+<td>
+
+true
+
+</td>
+
+<td>
+
+mixed
+
+</td>
+
+<td>
+
+none
+
+</td>
+
+<td>
+
+The distance to use in the comparison. Can be interger or decimal.
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+$formatted
+
+</td>
+
+<td>
+
+false
+
+</td>
+
+<td>
+
+bool
+
+</td>
+
+<td>
+
+false
+
+</td>
+
+<td>
+
+A flag to use the formatted point instead of the adjusted marker point.
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+###### Example
+
+    $nearby = LocationModel::whereDistance('address', 'Davenport, IA', '15 mi')->get();
+
+###### Twig
+
+    {% set nearby = entries('example', 'locations').whereDistance('address', 'Davenport, IA', '15 mi').get() %}
+
+
+#### EloquentQueryBuilder::orWhereDistance()[](#spatial/query-builder/eloquentquerybuilder-orwheredistance)
+
+The `orWhereDistance` distance is the same as the above method but uses an `OR WHERE` condition instead.
