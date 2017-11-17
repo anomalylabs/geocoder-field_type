@@ -1,6 +1,6 @@
 <?php namespace Anomaly\GeocoderFieldType;
 
-use Anomaly\GeocoderFieldType\Command\ExtendBuilder;
+use Anomaly\GeocoderFieldType\Command\ExtendQueryBuilder;
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 
 /**
@@ -33,6 +33,6 @@ class GeocoderFieldTypeServiceProvider extends AddonServiceProvider
             return;
         }
 
-        $this->dispatch(new ExtendBuilder());
+        $this->dispatch(new ExtendQueryBuilder());
     }
 }
