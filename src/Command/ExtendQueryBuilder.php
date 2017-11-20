@@ -3,13 +3,13 @@
 use Anomaly\Streams\Platform\Entry\EntryQueryBuilder;
 
 /**
- * Class ExtendBuilder
+ * Class ExtendQueryBuilder
  *
  * @link   http://pyrocms.com/
  * @author PyroCMS, Inc. <support@pyrocms.com>
  * @author Ryan Thompson <ryan@pyrocms.com>
  */
-class ExtendBuilder
+class ExtendQueryBuilder
 {
 
     /**
