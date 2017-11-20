@@ -5,10 +5,10 @@
 {% include "anomaly.field_type.geocoder::partials/address" %}
 
 <div
-        class="geocoder-map img-rounded"
         style="height: {{ field_type.config.height }}px; width: 100%;"
-        data-max-zoom="{{ field_type.config.max_zoom }}"
+        {#data-maxZoom="{{ field_type.config.max_zoom }}"#}
         data-zoom="{{ field_type.config.zoom }}"
+        {{ html_attributes(field_type.attributes) }}
         data-include="https://maps.google.com/maps/api/js?sensor=false&key={{ field_type.key }}"></div>
 
 <small class="text-muted match">

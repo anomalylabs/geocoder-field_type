@@ -23,6 +23,13 @@ class GeocoderFieldType extends FieldType
     protected $columnType = false;
 
     /**
+     * The field type class.
+     *
+     * @var string
+     */
+    protected $class = 'geocoder-map img-rounded';
+
+    /**
      * The input view.
      *
      * @var string
