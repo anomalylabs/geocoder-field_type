@@ -1,4 +1,4 @@
-$(document).on('ajaxComplete ready', function () {
+(function (window, document) {
 
     if (typeof(google) == 'undefined') {
 
@@ -133,4 +133,4 @@ $(document).on('ajaxComplete ready', function () {
             map.setCenter(position.getPosition());
         });
     });
-});
+})(window, document);
