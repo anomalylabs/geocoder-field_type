@@ -49,23 +49,33 @@ class GeocoderFieldTypeGeocoder
             return null;
         }
 
-        $json = $this->cache->rememberForever(
-            __METHOD__ . md5($address),
-            function () use ($address) {
+        $result = json_decode(
+            $this->cache->rememberForever(
+                __METHOD__ . md5($address),
+                function () use ($address) {
 
-                return (new Client())->get(
-                    'https://maps.googleapis.com/maps/api/geocode/json',
-                    [
-                        'query' => [
-                            'address' => urlencode($address),
-                            'key'     => $this->fieldType->key(),
-                        ],
-                    ]
-                )->getBody()->getContents();
-            }
+                    return (new Client())->get(
+                        'https://maps.googleapis.com/maps/api/geocode/json',
+                        [
+                            'query' => [
+                                'address' => urlencode($address),
+                                'key'     => $this->fieldType->key(),
+                            ],
+                        ]
+                    )->getBody()->getContents();
+                }
+            ),
+            true
         );
 
-        if (!$result = array_get(json_decode($json, true), 'results.0')) {
+        if (isset($result['error_message'])) {
+
+            $this->cache->forget(__METHOD__ . md5($address));
+
+            return null;
+        }
+
+        if (!$result = array_get($result, 'results.0')) {
             return null;
         }
 
