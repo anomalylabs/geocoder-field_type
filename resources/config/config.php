@@ -4,15 +4,18 @@ return [
     'zoom'   => [
         'type'   => 'anomaly.field_type.slider',
         'config' => [
-            'min' => 0,
-            'max' => 21,
+            'min'           => 0,
+            'max'           => 21,
+            'default_value' => 13,
         ],
     ],
     'height' => [
         'type'   => 'anomaly.field_type.integer',
         'config' => [
-            'min'  => 200,
-            'step' => 10,
+            'max'           => 1000,
+            'min'           => 50,
+            'step'          => 1,
+            'default_value' => 200,
         ],
     ],
 ];
