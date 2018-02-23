@@ -49,8 +49,9 @@ class GeocoderFieldType extends FieldType
      * @var array
      */
     protected $config = [
-        'height' => 400,
-        'zoom'   => 13,
+        'show_map' => true,
+        'height'   => 400,
+        'zoom'     => 13,
     ];
 
     /**
@@ -123,16 +124,6 @@ class GeocoderFieldType extends FieldType
     public function getUniqueColumnName()
     {
         return $this->field . '_formatted';
-    }
-
-    /**
-     * Get the value.
-     *
-     * @return null|string|array
-     */
-    public function getValue()
-    {
-        return parent::getValue();
     }
 
     /**
