@@ -21,8 +21,8 @@
         let wrapper = field.closest('.input-wrapper');
 
         // Define the inputs.
-        let map = wrapper.querySelector('.map');
         let match = wrapper.querySelector('.match');
+        let map = wrapper.querySelector('.geocoder-map');
         let address = wrapper.querySelector('input.address');
         let latitude = wrapper.querySelector('input.latitude');
         let formatted = wrapper.querySelector('input.formatted');
