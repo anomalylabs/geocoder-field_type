@@ -37,7 +37,7 @@
         // Initialize the Google Map.
         if (map) {
             let gmap = new google.maps.Map(
-                field,
+                map,
                 {
                     clickable: true,
                     zoomControl: true,
