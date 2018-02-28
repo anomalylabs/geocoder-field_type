@@ -35,51 +35,47 @@
         let formattedLocation = new google.maps.LatLng(formattedLatitude.value || 40.7128, formattedLongitude.value || -74.0059);
 
         // Initialize the Google Map.
-        if (map) {
-            let gmap = new google.maps.Map(
-                map,
-                {
-                    clickable: true,
-                    zoomControl: true,
-                    scrollwheel: false,
-                    mapTypeControl: true,
-                    disableDefaultUI: true,
-                    zoom: Number(map.dataset.zoom),
-                    center: formattedLocation
-                }
-            );
-
-            // Initialize the initial marker.
-            let marker = new google.maps.Marker({
-                zIndex: 2,
-                draggable: true,
-                position: location
-            });
-
-            // Initialize the initial marker.
-            let position = new google.maps.Marker({
-                zIndex: 1,
-                opacity: 0.5,
-                draggable: false,
-                position: formattedLocation
-            });
-
-            // Do we have a value?
-            if (address.value.length > 1) {
-                marker.setMap(gmap);
-                position.setMap(gmap);
+        let gmap = new google.maps.Map(
+            map,
+            {
+                clickable: true,
+                zoomControl: true,
+                scrollwheel: false,
+                mapTypeControl: true,
+                disableDefaultUI: true,
+                zoom: Number(map.dataset.zoom),
+                center: formattedLocation
             }
+        );
 
-            // When the marker moves, update.
-            google.maps.event.addListener(marker, 'drag', function () {
+        // Initialize the initial marker.
+        let marker = new google.maps.Marker({
+            zIndex: 2,
+            draggable: true,
+            position: location
+        });
 
-                let result = marker.getPosition();
+        // Initialize the initial marker.
+        let position = new google.maps.Marker({
+            zIndex: 1,
+            opacity: 0.5,
+            draggable: false,
+            position: formattedLocation
+        });
 
-                // Update the inputs.
-                latitude.value = result.lat().toFixed(7);
-                longitude.value = result.lng().toFixed(7);
-            });
-        }
+        // Do we have a value?
+        marker.setMap(gmap);
+        position.setMap(gmap);
+
+        // When the marker moves, update.
+        google.maps.event.addListener(marker, 'drag', function () {
+
+            let result = marker.getPosition();
+
+            // Update the inputs.
+            latitude.value = result.lat().toFixed(7);
+            longitude.value = result.lng().toFixed(7);
+        });
 
 
         // When the address changes, update.
@@ -123,10 +119,8 @@
 
         // Resize on tab displays.
         $('[data-toggle="tab"]').on('shown.bs.tab', function () {
-            if (map) {
-                google.maps.event.trigger(gmap, 'resize');
-                gmap.setCenter(position.getPosition());
-            }
+            google.maps.event.trigger(gmap, 'resize');
+            gmap.setCenter(position.getPosition());
         });
     });
 })(window, document);
