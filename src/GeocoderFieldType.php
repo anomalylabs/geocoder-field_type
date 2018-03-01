@@ -49,7 +49,7 @@ class GeocoderFieldType extends FieldType
      * @var array
      */
     protected $config = [
-        'show_map' => false,
+        'show_map' => true,
         'height'   => 400,
         'zoom'     => 13,
     ];
