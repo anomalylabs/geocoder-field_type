@@ -127,6 +127,16 @@ class GeocoderFieldTypePoint
     {
         return $this->componentValue('locality');
     }
+    
+    /**
+     * Alias for postalCode().
+     *
+     * @return string|null
+     */
+    public function zip()
+    {
+        return $this->postalCode();
+    }
 
     /**
      * Return the postal code.
