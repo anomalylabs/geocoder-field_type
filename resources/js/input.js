@@ -118,6 +118,19 @@
     };
 
     /**
+     * Include google if not
+     * already included.
+     */
+    if (typeof google == "undefined") {
+        (function (document, tag) {
+            let scriptTag = document.createElement(tag), // create a script tag
+                firstScriptTag = document.getElementsByTagName(tag)[0]; // find the first script tag in the document
+            scriptTag.src = document.getElementById('google-maps-api').dataset.include; // set the source of the script to your script
+            firstScriptTag.parentNode.insertBefore(scriptTag, firstScriptTag); // append the script to the DOM
+        }(document, 'script'));
+    }
+
+    /**
      * Wait for google to
      * load before initializing.
      *
