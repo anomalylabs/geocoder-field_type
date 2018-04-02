@@ -167,11 +167,11 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
     /**
      * Return the map directions URL.
      *
-     * @param $from
+     * @param null $from
      * @param bool $formatted
      * @return string
      */
-    public function directions($from, $formatted = false)
+    public function directions($from = null, $formatted = false)
     {
         return 'https://www.google.com/maps/dir/' . $from . '/' . implode(',', $this->position($formatted)) . '/';
     }
