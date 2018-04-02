@@ -163,6 +163,17 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
     {
         return 'https://www.google.com/maps/place/' . implode(',', $this->position($formatted)) . '/';
     }
+    
+    /**
+     * Return the map place URL.
+     *
+     * @param bool $formatted
+     * @return string
+     */
+    public function place($place, $formatted = false)
+    {
+        return 'https://www.google.com/maps/place/' . $place . '/' . implode(',', $this->position($formatted)) . '/';
+    }
 
     /**
      * Return a link to the URL.
