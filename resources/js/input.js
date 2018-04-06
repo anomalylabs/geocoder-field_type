@@ -2,7 +2,7 @@
 
     let initialize = function () {
 
-        let fields = Array.from(
+        let fields = Array.prototype.slice.call(
             document.querySelectorAll('[data-provides="anomaly.field_type.geocoder"]')
         );
 
