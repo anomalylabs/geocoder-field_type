@@ -3,7 +3,6 @@
 use Anomaly\GeocoderFieldType\Command\ExtendQueryBuilder;
 use Anomaly\Streams\Platform\Addon\AddonServiceProvider;
 use Anomaly\Streams\Platform\View\ViewIncludes;
-use Illuminate\Contracts\Config\Repository;
 
 /**
  * Class GeocoderFieldTypeServiceProvider
@@ -46,12 +45,10 @@ class GeocoderFieldTypeServiceProvider extends AddonServiceProvider
     /**
      * Boot the addon.
      *
-     * @param GeocoderFieldType $fieldType
+     * @param ViewIncludes $includes
      */
-    public function boot(ViewIncludes $includes, Repository $config)
+    public function boot(ViewIncludes $includes)
     {
-        if ($config->get('anomaly.field_type.geocoder::google.key')) {
-            $includes->add('cp_scripts', 'anomaly.field_type.geocoder::script');
-        }
+        $includes->add('cp_scripts', 'anomaly.field_type.geocoder::script');
     }
 }
