@@ -69,6 +69,7 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      * Return a static image map.
      *
      * @param array $options
+     * @param bool  $formatted
      * @return null|string
      */
     public function image(array $options = [], $formatted = false)
@@ -79,7 +80,7 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
 
         $data = [
             'scale'          => array_get($options, 'scale', 1),
-            'zoom'           => $this->object->config('zoom', 13),
+            'zoom'           => array_get($options, 'zoom', $this->object->config('zoom', 13)),
             'format'         => array_get($options, 'format', 'png'),
             'center'         => implode(',', $this->position($formatted)),
             'maptype'        => array_get($options, 'maptype', 'roadmap'),
