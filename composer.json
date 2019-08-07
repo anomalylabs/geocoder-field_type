@@ -23,7 +23,8 @@
     },
     "require": {
         "grimzy/laravel-mysql-spatial": "~1.0.0",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "doctrine/dbal": "^2.6"
     },
     "autoload": {
         "psr-4": {
