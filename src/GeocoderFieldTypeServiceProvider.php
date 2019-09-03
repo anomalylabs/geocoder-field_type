@@ -49,6 +49,6 @@ class GeocoderFieldTypeServiceProvider extends AddonServiceProvider
      */
     public function boot(ViewIncludes $includes)
     {
-        $includes->add('cp_scripts', 'anomaly.field_type.geocoder::script');
+        $includes->include('cp_scripts', 'anomaly.field_type.geocoder::script');
     }
 }
