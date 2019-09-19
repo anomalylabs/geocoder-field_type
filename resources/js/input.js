@@ -1,5 +1,6 @@
 (function (window, document) {
-
+    GEOCODER_INCLUDE = "https://maps.google.com/maps/api/js?key={{ config('anomaly.field_type.geocoder::google.key') }}";
+    
     let initialize = function () {
 
         let fields = Array.prototype.slice.call(
@@ -148,6 +149,8 @@
         }, 0);
     }
 
-    load(initialize);
+    if (typeof GEOCODER_INCLUDE !== 'undefined') {
+        load(initialize);
+    }
 
 })(window, document);
