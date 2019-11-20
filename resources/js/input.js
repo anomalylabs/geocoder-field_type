@@ -116,6 +116,15 @@
             });
         });
     };
+    
+    /**
+     * If we're here for some strange reason
+     * this might not be present. Fix this
+     * at it's source in the future.
+     */
+    if (typeof GEOCODER_INCLUDE == "undefined") {
+        return;
+    }
 
     /**
      * Include google if not
