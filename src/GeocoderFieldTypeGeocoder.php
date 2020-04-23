@@ -2,6 +2,7 @@
 
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class GeocoderFieldTypeGeocoder
@@ -71,7 +72,7 @@ class GeocoderFieldTypeGeocoder
         if (isset($result['error_message'])) {
 
             $this->cache->forget(__METHOD__ . md5($address));
-
+            Log::error('Geocoder Field Type: ' . $result['error_message']);
             return null;
         }
 
