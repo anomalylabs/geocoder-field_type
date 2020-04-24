@@ -83,7 +83,7 @@ class GeocoderFieldTypePoint
      * @param string $type
      * @return string|null
      */
-    protected function componentValue($component, $type = 'long')
+    public function componentValue($component, $type = 'long')
     {
         return array_get((array)$this->component($component), $type . '_name');
     }
