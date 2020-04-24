@@ -119,6 +119,16 @@ class GeocoderFieldTypePoint
     }
 
     /**
+     * Return the neighborhood.
+     *
+     * @return string|null
+     */
+    public function neighborhood()
+    {
+        return $this->componentValue('neighborhood');
+    }
+    
+    /**
      * Return the city.
      *
      * @return string|null
