@@ -72,7 +72,9 @@ class GeocoderFieldTypeGeocoder
         if (isset($result['error_message'])) {
 
             $this->cache->forget(__METHOD__ . md5($address));
+            
             Log::error('Geocoder Field Type: ' . $result['error_message']);
+            
             return null;
         }
 
