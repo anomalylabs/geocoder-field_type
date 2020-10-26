@@ -22,6 +22,7 @@
         "email": "support@anomaly.is"
     },
     "require": {
+        "grimzy/laravel-mysql-spatial": "~5.0.0",
         "anomaly/streams-platform": "^1.8",
         "guzzlehttp/guzzle": "~6.0",
         "doctrine/dbal": "^2.6"
