@@ -24,7 +24,7 @@
     "require": {
         "grimzy/laravel-mysql-spatial": "~2.2.0",
         "anomaly/streams-platform": "^1.7",
-        "guzzlehttp/guzzle": "~6.0",
+        "guzzlehttp/guzzle": "^7.0",
         "doctrine/dbal": "^2.6"
     },
     "autoload": {
