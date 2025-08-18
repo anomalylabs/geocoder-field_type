@@ -22,10 +22,10 @@
         "email": "support@anomaly.is"
     },
     "require": {
-        "grimzy/laravel-mysql-spatial": "~2.2.0",
-        "anomaly/streams-platform": "^1.7",
+        "matanyadaev/laravel-eloquent-spatial": "~4.5.0",
+        "anomaly/streams-platform": "^1.10",
         "guzzlehttp/guzzle": "^7.0",
-        "doctrine/dbal": "^2.6"
+        "doctrine/dbal": "^3.6"
     },
     "autoload": {
         "psr-4": {
