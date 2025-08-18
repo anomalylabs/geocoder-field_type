@@ -114,7 +114,7 @@ class GeocoderFieldTypeCriteria extends FieldTypeCriteria
     protected function getPoint($point)
     {
         if (!$point instanceof Point) {
-            $point = $this->dispatch(new GetPoint($point));
+            $point = dispatch_sync(new GetPoint($point));
         }
 
         return $point;

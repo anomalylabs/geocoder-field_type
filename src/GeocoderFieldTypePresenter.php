@@ -268,7 +268,7 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
      */
     public function geocode($formatted = false)
     {
-        return $this->dispatch(new Geocode($this->address($formatted)));
+        return dispatch_sync(new Geocode($this->address($formatted)));
     }
 
     /**

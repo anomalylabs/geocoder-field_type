@@ -39,7 +39,7 @@ class GeocoderFieldTypeServiceProvider extends AddonServiceProvider
             return;
         }
 
-        $this->dispatch(new ExtendQueryBuilder());
+        dispatch_sync(new ExtendQueryBuilder());
     }
 
     /**
