@@ -6,7 +6,7 @@ use Anomaly\GeocoderFieldType\Spatial\Point;
 use Anomaly\Streams\Platform\Addon\FieldType\FieldTypePresenter;
 use Anomaly\Streams\Platform\Image\Image;
 use Anomaly\Streams\Platform\Support\Collection;
-use Collective\Html\HtmlBuilder;
+use Anomaly\Streams\Platform\Html\HtmlBuilder;
 use Illuminate\Contracts\View\Factory;
 
 /**

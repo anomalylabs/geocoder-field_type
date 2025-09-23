@@ -3,6 +3,7 @@
 use Anomaly\GeocoderFieldType\Command\Geocode;
 use Anomaly\Streams\Platform\Addon\Plugin\Plugin;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Twig\TwigFunction;
 
 /**
  * Class GeocoderFieldTypePlugin
@@ -24,7 +25,7 @@ class GeocoderFieldTypePlugin extends Plugin
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction(
+            new TwigFunction(
                 'geocode',
                 function ($parameters) {
                     return dispatch_sync(new Geocode($parameters));

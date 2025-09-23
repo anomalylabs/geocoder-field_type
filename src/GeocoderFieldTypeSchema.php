@@ -114,9 +114,6 @@ class GeocoderFieldTypeSchema extends FieldTypeSchema
          * Mark the column unique if desired and not translatable.
          * Otherwise, drop the unique index.
          */
-        $connection = $this->schema->getConnection();
-        $manager    = $connection->getDoctrineSchemaManager();
-        $doctrine   = $manager->listTableDetails($connection->getTablePrefix() . $table->getTable());
 
         // The unique index name.
         $unique = md5('unique_' . $this->fieldType->getColumnName());
@@ -126,7 +123,7 @@ class GeocoderFieldTypeSchema extends FieldTypeSchema
          * and the table does not already have the given the
          * given table index then go ahead and add it.
          */
-        if ($assignment->isUnique() && !$assignment->isTranslatable() && !$doctrine->hasIndex($unique)) {
+        if ($assignment->isUnique() && !$assignment->isTranslatable() && !$this->schema->hasIndex($table->getTable(), $unique)) {
             $table->unique($this->fieldType->getColumnName() . '_address', $unique);
         }
 
@@ -135,7 +132,7 @@ class GeocoderFieldTypeSchema extends FieldTypeSchema
          * and the table DOES have the given table index
          * then we need to remove.
          */
-        if (!$assignment->isUnique() && !$assignment->isTranslatable() && $doctrine->hasIndex($unique)) {
+        if (!$assignment->isUnique() && !$assignment->isTranslatable() && $this->schema->hasIndex($table->getTable(), $unique)) {
             $table->dropIndex(md5('unique_' . $this->fieldType->getColumnName()));
         }
     }
