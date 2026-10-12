@@ -96,7 +96,7 @@ class GeocoderFieldTypePresenter extends FieldTypePresenter
 
         $data['markers'] = implode('|', [$size, $color, $label]);
 
-        $url = 'http://maps.googleapis.com/maps/api/staticmap?'
+        $url = 'https://maps.googleapis.com/maps/api/staticmap?'
             . http_build_query($data)
             . '&key=' . $this->object->key();
 

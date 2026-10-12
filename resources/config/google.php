@@ -12,4 +12,15 @@ return [
     */
     'key' => env('GEOCODER_KEY'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Google Geocoding API Server Key
+    |--------------------------------------------------------------------------
+    |
+    | Specify the key used for geocoding requests made by the server.
+    | When not specified the Google Maps API key above is used.
+    |
+    */
+    'server_key' => env('GEOCODER_SERVER_KEY'),
+
 ];

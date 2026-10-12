@@ -91,6 +91,17 @@ class GeocoderFieldType extends FieldType
     }
 
     /**
+     * Return the Google API Key
+     * for server-side requests.
+     *
+     * @return string
+     */
+    public function serverKey()
+    {
+        return $this->configuration->get($this->getNamespace('google.server_key')) ?: $this->key();
+    }
+
+    /**
      * Return if spatial utilities
      * are installed and enabled.
      *

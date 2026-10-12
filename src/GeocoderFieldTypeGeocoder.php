@@ -60,7 +60,7 @@ class GeocoderFieldTypeGeocoder
                         [
                             'query' => [
                                 'address' => urlencode($address),
-                                'key'     => $this->fieldType->key(),
+                                'key'     => $this->fieldType->serverKey(),
                             ],
                         ]
                     )->getBody()->getContents();
@@ -106,7 +106,7 @@ class GeocoderFieldTypeGeocoder
                     [
                         'query' => [
                             'latlng' => $latitude . ',' . $longitude,
-                            'key'    => $this->fieldType->key(),
+                            'key'    => $this->fieldType->serverKey(),
                         ],
                     ]
                 )->getBody()->getContents();
